@@ -1,26 +1,32 @@
-import { useRef } from "react";
+import { FormEvent, useRef } from "react";
+import { useDispatch } from "react-redux";
+import { changeCity } from "../store/city-slice";
 
-const Input = (props: any) => {
+const Input = () => {
   const cityInputData = useRef<HTMLInputElement>(null);
-  const getDataHandler = () => {
-    props.getData(cityInputData?.current?.value);
+  const dispatch = useDispatch();
+  const getDataHandler = (e: FormEvent) => {
+    e.preventDefault();
+    dispatch(changeCity(cityInputData.current!.value));
+
+    return cityInputData.current ? (cityInputData.current.value = "") : null;
   };
   return (
-    <div>
-      <div className="relative mt-2 rounded-md shadow-sm">
-        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3"></div>
-        <input
-          ref={cityInputData}
-          type="text"
-          name="price"
-          id="price"
-          className="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300
-           placeholder:text-gray-400 sm:text-sm sm:leading-6 max-w-sm"
-          placeholder="0.00"
-        />
+    <>
+      <div className="relative mt-2 rounded-md shadow-sm w-1/3">
+        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 "></div>
+        <form onSubmit={getDataHandler}>
+          <input
+            ref={cityInputData}
+            type="text"
+            name="price"
+            id="price"
+            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2"
+            placeholder="Search..."
+          />
+        </form>
       </div>
-      <button onClick={getDataHandler}>Get</button>
-    </div>
+    </>
   );
 };
 
