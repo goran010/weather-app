@@ -1,18 +1,18 @@
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import Input from "../Input";
-import { uiActions } from "../../store/ui-slice";
+import { signIn } from "../../store/ui-slice";
 import { useSelector } from "react-redux/es/exports";
 const MainNavigation = () => {
   const dispatch = useDispatch();
   const signInHandler = () => {
-    dispatch(uiActions.signIn());
+    dispatch(signIn());
   };
   const isSignedIn = useSelector((state: any) => {
     return state.ui.isSignedIn;
   });
   return (
-    <header className="px-36">
+    <header className="sm:px-36 px-12">
       <div className=" mx-auto flex items-center justify-between pb-10 pt-5">
         <h1 className="text-xl font-semibold">Weather app</h1>
         <Input />
@@ -56,7 +56,7 @@ const MainNavigation = () => {
           id="mobile-menu-3"
         >
           <ul className="flex-col md:flex-row flex md:space-x-8 mt-4 md:mt-0 md:text-sm md:font-medium">
-            <li>
+            <li >
               <NavLink
                 to={"/"}
                 className="bg-blue-700 md:bg-transparent  block pl-3 pr-4 py-2 text-base md:hover:text-blue-700 md:p-0 rounded"
@@ -71,7 +71,7 @@ const MainNavigation = () => {
               </NavLink>
             </li>
             {!isSignedIn && (
-              <li>
+              <li className="sm:block hidden">
                 <NavLink
                   to="/signIn"
                   className="text-gray-700 hover:bg-gray-50 border-b border-gray-100 text-base md:hover:bg-transparent md:border-0 block pl-3 pr-4 py-2 md:hover:text-blue-700 md:p-0"
@@ -88,9 +88,9 @@ const MainNavigation = () => {
           </ul>
         </nav>
         {isSignedIn && (
-          <div onClick={signInHandler} className="cursor-pointer">
+          <li onClick={signInHandler} className="cursor-pointer sm:block hidden">
             <h1>Sign Out</h1>
-          </div>
+          </li>
         )}
       </div>
     </header>

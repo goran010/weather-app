@@ -2,8 +2,8 @@ const FuturePrediction = () => {
   return (
     <div className="w-full flex items-center justify-center col-span-5">
       <div className=" flex-column  w-full bg-white shadow-2xl p-6 rounded-2xl border-2 border-gray-50 gap-x-12">
-        <div className="w-full flex justify-between ">
-          <div className="flex-column justify-items-center w-1/5  py-6 gap-3 min-h-max">
+        <div className="w-full flex justify-between flex-row flex-wrap  ">
+          <div className="flex-column justify-items-center md:w-1/5  w-1/2   py-6 gap-3 min-h-max">
             <h2 className="text-xs text-center min-w-min">24/03/2023</h2>
             <svg
               className="flex w-full h-20 fill-stroke text-yellow-400"
@@ -24,7 +24,7 @@ const FuturePrediction = () => {
               Patchy rain season
             </p>
           </div>
-          <div className="flex-column justify-items-center w-1/5  py-6 gap-3 border-x-2 ">
+          <div className="flex-column justify-items-center md:w-1/5  w-1/2   py-6 gap-3 border-x-2 ">
             <h2 className="text-xs text-center min-w-min">24/03/2023</h2>
             <svg
               className="flex w-full h-20 fill-stroke text-yellow-400"
@@ -45,7 +45,7 @@ const FuturePrediction = () => {
               Patchy rain season
             </p>
           </div>
-          <div className="flex-column justify-items-center w-1/4   py-6 gap-3 ">
+          <div className="flex-column justify-items-center md:w-1/5  w-1/2    py-6 gap-3 ">
             <h2 className="text-xs text-center min-w-min">24/03/2023</h2>
             <svg
               className="flex w-full h-20 fill-stroke text-yellow-400"
@@ -66,7 +66,7 @@ const FuturePrediction = () => {
               Patchy rain season
             </p>
           </div>
-          <div className="flex-column justify-items-center justify-between w-1/5 py-6 border-x-2 gap-7">
+          <div className="flex-column justify-items-center justify-between md:w-1/5  w-1/2  py-6 border-x-2 gap-7">
             <h2 className=" text-xs text-center min-w-min">24/03/2023</h2>
             <svg
               className="w-full h-20 fill-stroke text-yellow-400"
@@ -87,7 +87,7 @@ const FuturePrediction = () => {
               Patchy rain season
             </p>
           </div>
-          <div className="flex-column justify-items-center justify-between w-1/5 py-6 gap-7">
+          <div className="flex-column justify-items-center justify-between md:w-1/5  w-1/2  py-6 gap-7">
             <h2 className=" text-xs text-center min-w-min">24/03/2023</h2>
             <svg
               className="w-full h-20 fill-stroke text-yellow-400"

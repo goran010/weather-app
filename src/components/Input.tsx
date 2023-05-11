@@ -1,15 +1,17 @@
 import { FormEvent, useRef } from "react";
-import { useDispatch } from "react-redux";
-import { changeCity } from "../store/city-slice";
+import { useStoreDispatch } from "../store/hooks";
+import { fetchData } from "../store/city-slice";
+import { changeSelectedCity } from "../store/ui-slice";
 
 const Input = () => {
   const cityInputData = useRef<HTMLInputElement>(null);
-  const dispatch = useDispatch();
-  const getDataHandler = (e: FormEvent) => {
-    e.preventDefault();
-    dispatch(changeCity(cityInputData.current!.value));
+  const dispatch = useStoreDispatch();
 
-    return cityInputData.current ? (cityInputData.current.value = "") : null;
+  const getDataHandler = async (e: FormEvent) => {
+    e.preventDefault();
+    await dispatch(fetchData(cityInputData.current!.value));
+    dispatch(changeSelectedCity());
+    //return cityInputData.current ? (cityInputData.current.value = "") : null;
   };
   return (
     <>

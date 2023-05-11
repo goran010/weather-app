@@ -1,18 +1,19 @@
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { uiActions } from "../store/ui-slice";
+import { signIn } from "../store/ui-slice";
 import { useNavigate } from "react-router-dom";
 const SignIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const signInHandler = () => {
-    dispatch(uiActions.signIn());
+  const signInHandler = (e: React.FormEvent<EventTarget>) => {
+    e.preventDefault();
+    dispatch(signIn());
     navigate("/");
   };
   return (
     <div className="bg-grey-lighter min-h-screen flex flex-col">
       <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
-        <form className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
+        <form className="bg-white px-6 py-8 rounded shadow-md text-black w-full" onSubmit={signInHandler}>
           <h1 className="mb-8 text-3xl text-center">Sign in</h1>
           <input
             type="text"
@@ -29,7 +30,7 @@ const SignIn = () => {
           <button
             type="submit"
             className="w-full text-center py-3 rounded bg-green-500 text-white hover:bg-green-600 focus:outline-none my-1"
-            onClick={signInHandler}
+            
           >
             Sign In
           </button>
