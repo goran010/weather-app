@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 interface cityState {
@@ -39,43 +39,47 @@ const citySlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchData.fulfilled, (state, action) => {
-      const data = action.payload;
+      const data = action.payload.data.hourly;
+      const time = action.payload.time;
       state.cities.push({
-        name: data.location.name,
-        country: data.location.country,
-        feelTemp: data.current.feelslike_c,
-        humidity: data.current.humidity,
-        temp: data.current.temp_c,
-        uv: data.current.uv,
-        pressure: data.current.pressure_mb,
-        wind: data.current.wind_kph,
-        img: data.current.condition.icon,
-        text: data.current.condition.text,
+        name: action.payload.cityName,
+        country: action.payload.countryName,
+        feelTemp: data.apparent_temperature[time],
+        humidity: data.relativehumidity_2m[time],
+        temp: data.temperature_2m[time],
+        uv: data.uv_index[time],
+        pressure: data.surface_pressure[time],
+        wind: data.windspeed_10m[time],
+        img: "",
+        text: "",
       });
     });
   },
 });
+
 export const fetchData = createAsyncThunk(
   "city/fetchData",
-  async (cityName: string) => {
-    const options = {
-      method: "GET",
-      headers: {
-        "X-RapidAPI-Key": "f3a683fbc3msh385d4da297ee7e9p134996jsne879cdba850c",
-        "X-RapidAPI-Host": "weatherapi-com.p.rapidapi.com",
-      },
-    };
+  async (obj: {
+    lat: number;
+    lon: number;
+    time: number;
+    cityName: string;
+    countryName: string;
+  }) => {
     const data = await axios
       .get(
-        `https://weatherapi-com.p.rapidapi.com/current.json?q=${cityName}`,
-        options
+        `https://api.open-meteo.com/v1/forecast?latitude=${obj.lat}&longitude=${obj.lon}&hourly=temperature_2m,uv_index,surface_pressure,relativehumidity_2m,apparent_temperature,rain,cloudcover_low,windspeed_10m`
       )
       .then((response) => {
-        return response.data;
-      })
-      .catch((err) => console.error(err));
+        return {
+          data: response.data,
+          cityName: obj.cityName,
+          time: obj.time,
+          countryName: obj.countryName,
+        };
+      });
     return data;
   }
 );
-export const {} = citySlice.actions;
+
 export default citySlice;

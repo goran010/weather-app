@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import SelectedCity from "../components/SelectedCity";
 interface uiState {
   isSignedIn: boolean;
   selectedCity: number;

@@ -46,7 +46,7 @@ const SelectedCity = () => {
           <h2 className="text-xl font-bold w-full">Thursday, March 23, 2023</h2>
           <h3 className="text-lg">
             {" "}
-            <span className="font-semibold">{name}</span>, {country}
+            <span className="font-semibold capitalize">{name}</span>, {country}
           </h3>
           <div className="w-full flex justify-between h-4/5  ">
             <div className="flex w-1/2 ">
