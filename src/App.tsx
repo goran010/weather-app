@@ -1,4 +1,4 @@
-import React from "react";
+
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Home from "./pages/Home";
@@ -25,9 +25,12 @@ const homeLoader = async () => {
     .catch((err) => console.error(err));
   const weatherData = await axios
     .get(
-      `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,uv_index,surface_pressure,relativehumidity_2m,apparent_temperature,rain,cloudcover_low,windspeed_10m`
+      `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,uv_index,surface_pressure,relativehumidity_2m,apparent_temperature,rain,cloudcover_low,windspeed_10m&current_weather=true`
     )
-    .then((response) => response.data.hourly)
+    .then((response) => {
+      console.log(response);
+      return response.data.hourly;
+    })
     .catch((err) => console.error(err));
 
   return {

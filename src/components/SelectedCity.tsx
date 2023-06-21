@@ -39,8 +39,9 @@ const SelectedCity = () => {
     wind,
     humidity,
   } = data;
+  console.log(cityData)
   return (
-    <div className="w-full h-full row-span-3 col-span-2 ">
+    <div className="w-full h-full row-span-3 col-span-2 -z-20">
       <div className="w-full h-full bg-white shadow-2xl p-6 rounded-2xl border-2 border-gray-50  grid grid-cols-2 grid-rows-8 gap-x-8 min-h-min ">
         <div className="col-span-2 row-span-3 border-b-2 flex flex-col justify-between">
           <h2 className="text-xl font-bold w-full">Thursday, March 23, 2023</h2>

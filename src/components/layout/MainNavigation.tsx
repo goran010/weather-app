@@ -13,10 +13,10 @@ const MainNavigation = () => {
   });
   return (
     <header className="sm:px-36 px-12">
-      <div className=" mx-auto flex items-center justify-between pb-10 pt-5">
+      <div className=" mx-auto flex items-center justify-between pb-10 pt-5 ">
         <h1 className="text-xl font-semibold">Weather app</h1>
         <Input />
-        <div className="flex">
+        <div className="flex pointer-events-auto">
           <button
             data-collapse-toggle="mobile-menu-3"
             type="button"
