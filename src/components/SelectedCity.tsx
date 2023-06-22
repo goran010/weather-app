@@ -22,11 +22,13 @@ const SelectedCity = () => {
     humidity: number;
   };
   const [data, setData] = useState(loadedData);
+
   useEffect(() => {
     if (selectedCityIndex !== 0) {
       setData(cityData);
     }
-  }, [selectedCityIndex,cityData]);
+  }, [selectedCityIndex, cityData]);
+  
   const {
     name,
     country,
@@ -39,7 +41,7 @@ const SelectedCity = () => {
     wind,
     humidity,
   } = data;
-  console.log(cityData)
+
   return (
     <div className="w-full h-full row-span-3 col-span-2 -z-20">
       <div className="w-full h-full bg-white shadow-2xl p-6 rounded-2xl border-2 border-gray-50  grid grid-cols-2 grid-rows-8 gap-x-8 min-h-min ">

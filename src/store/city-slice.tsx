@@ -40,16 +40,20 @@ const citySlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchData.fulfilled, (state, action) => {
       const data = action.payload.data.hourly;
-      const time = action.payload.time;
+      const currentData = action.payload.currentData;
+      console.log();
+      //with -2 results are correct
+      const today = new Date(),
+        time = today.getHours()-2;
       state.cities.push({
         name: action.payload.cityName,
         country: action.payload.countryName,
         feelTemp: data.apparent_temperature[time],
         humidity: data.relativehumidity_2m[time],
-        temp: data.temperature_2m[time],
+        temp: currentData.temperature,
         uv: data.uv_index[time],
         pressure: data.surface_pressure[time],
-        wind: data.windspeed_10m[time],
+        wind: currentData.windspeed,
         img: "",
         text: "",
       });
@@ -62,21 +66,19 @@ export const fetchData = createAsyncThunk(
   async (obj: {
     lat: number;
     lon: number;
-    time: number;
     cityName: string;
     countryName: string;
   }) => {
     const data = await axios
       .get(
-        `https://api.open-meteo.com/v1/forecast?latitude=${obj.lat}&longitude=${obj.lon}&hourly=temperature_2m,uv_index,surface_pressure,relativehumidity_2m,apparent_temperature,rain,cloudcover_low,windspeed_10m&current_weather=true`
+        `https://api.open-meteo.com/v1/forecast?latitude=${obj.lat}&longitude=${obj.lon}&hourly=temperature_2m,uv_index,surface_pressure,relativehumidity_2m,apparent_temperature,rain,cloudcover_low,windspeed_10m&current_weather=true&forecast_days=2&timezone=GMT`
       )
       .then((response) => {
-        console.log(response.data.current_weather)
+
         return {
-          currentData:response.data.current_weather,
+          currentData: response.data.current_weather,
           data: response.data,
           cityName: obj.cityName,
-          time: obj.time,
           countryName: obj.countryName,
         };
       });

@@ -8,7 +8,17 @@ const InputDropdown = ({
   changeCity,
 }: {
   searchedName: string;
-  changeCity({}): Promise<void>;
+  changeCity({
+    lat,
+    lon,
+    cityName,
+    countryName,
+  }: {
+    lat: number;
+    lon: number;
+    cityName: string;
+    countryName: string;
+  }): Promise<void>;
 }) => {
   const [cities, setCities] = useState([] as any[]);
 
@@ -27,7 +37,6 @@ const InputDropdown = ({
     fetchNames(searchedName);
   }, [searchedName]);
 
-
   return (
     <ul className="absolute w-full flex flex-col bg-white min-w-max border-slate-200 border-2  rounded-bl-md rounded-br-md overflow-hidden top-5 left-0 pt-5">
       {cities ? (
@@ -38,7 +47,6 @@ const InputDropdown = ({
               key={item.id}
               className="cursor-pointer min-w-max bg-white p-2 pl-3 pb-2  p-w-3 hover:bg-slate-200 flex gap-1"
               onClick={() => {
-                console.log("ll");
                 changeCity({
                   lat: item.latitude,
                   lon: item.longitude,

@@ -49,8 +49,8 @@ const Input = () => {
     }, 500);
     return () => clearTimeout(timeOutId);
   }, [inputedName]);
-//greska kod prebrzog submitanja 
-  
+  //greska kod prebrzog submitanja
+
   const changeCity = async (cityData: {
     lat: number;
     lon: number;
@@ -63,7 +63,6 @@ const Input = () => {
         lon: cityData.lon,
         cityName: cityData.cityName,
         countryName: cityData.countryName,
-        time: new Date().getHours(),
       })
     );
     dispatch(changeSelectedCity());
