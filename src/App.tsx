@@ -1,4 +1,4 @@
-
+import React from "react";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Home from "./pages/Home";
@@ -44,6 +44,7 @@ const homeLoader = async () => {
     wind: weatherData.windspeed_10m[day],
     img: "",
     text: "",
+    countryCode:'hr'
   };
 };
 function App() {

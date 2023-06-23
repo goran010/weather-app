@@ -22,6 +22,7 @@ const fetchNames = async (cityName: string) => {
     lon: data.longitude,
     countryName: data.country,
     cityName: data.name,
+    countryCode:data.country_code.toLowerCase()
   };
 };
 const Input = () => {
@@ -56,6 +57,7 @@ const Input = () => {
     lon: number;
     cityName: string;
     countryName: string;
+    countryCode: string;
   }) => {
     await dispatch(
       fetchData({
@@ -63,6 +65,7 @@ const Input = () => {
         lon: cityData.lon,
         cityName: cityData.cityName,
         countryName: cityData.countryName,
+        countryCode:cityData.countryCode
       })
     );
     dispatch(changeSelectedCity());

@@ -18,6 +18,7 @@ const InputDropdown = ({
     lon: number;
     cityName: string;
     countryName: string;
+    countryCode: string;
   }): Promise<void>;
 }) => {
   const [cities, setCities] = useState([] as any[]);
@@ -28,7 +29,6 @@ const InputDropdown = ({
         `https://geocoding-api.open-meteo.com/v1/search?name=${cityName}&count=5`
       )
       .then((response) => {
-        console.log(response.data.results);
         setCities(response.data.results);
       })
       .catch((err) => console.error(err));
@@ -41,7 +41,6 @@ const InputDropdown = ({
     <ul className="absolute w-full flex flex-col bg-white min-w-max border-slate-200 border-2  rounded-bl-md rounded-br-md overflow-hidden top-5 left-0 pt-5">
       {cities ? (
         cities.map((item) => {
-          console.log(item);
           return (
             <li
               key={item.id}
@@ -52,6 +51,7 @@ const InputDropdown = ({
                   lon: item.longitude,
                   cityName: item.name,
                   countryName: item.country,
+                  countryCode: item.country_code.toLowerCase(),
                 });
               }}
             >

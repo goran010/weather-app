@@ -1,6 +1,7 @@
-import {useStoreSelector } from "../store/hooks";
+import { useStoreSelector } from "../store/hooks";
 import { useLoaderData } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { CircleFlag } from "react-circle-flags";
 
 const SelectedCity = () => {
   let selectedCityIndex: number = useStoreSelector(
@@ -20,6 +21,8 @@ const SelectedCity = () => {
     uv: number;
     wind: number;
     humidity: number;
+
+    countryCode:string
   };
   const [data, setData] = useState(loadedData);
 
@@ -28,7 +31,7 @@ const SelectedCity = () => {
       setData(cityData);
     }
   }, [selectedCityIndex, cityData]);
-  
+
   const {
     name,
     country,
@@ -40,17 +43,24 @@ const SelectedCity = () => {
     uv,
     wind,
     humidity,
+    countryCode
   } = data;
-
+console.log(countryCode)
   return (
     <div className="w-full h-full row-span-3 col-span-2 -z-20">
       <div className="w-full h-full bg-white shadow-2xl p-6 rounded-2xl border-2 border-gray-50  grid grid-cols-2 grid-rows-8 gap-x-8 min-h-min ">
         <div className="col-span-2 row-span-3 border-b-2 flex flex-col justify-between">
           <h2 className="text-xl font-bold w-full">Thursday, March 23, 2023</h2>
-          <h3 className="text-lg">
+          <div className="flex gap-2 mt-2">
             {" "}
-            <span className="font-semibold capitalize">{name}</span>, {country}
-          </h3>
+            <h3 className="text-lg ">
+              {" "}
+              <span className="font-semibold capitalize">{name}</span>,{" "}
+              {country}
+            </h3>
+            <CircleFlag countryCode={countryCode} className="h-7" />
+          </div>
+
           <div className="w-full flex justify-between h-4/5  ">
             <div className="flex w-1/2 ">
               <div className="flex flex-col align-center justify-center gap-1">

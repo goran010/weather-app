@@ -14,6 +14,7 @@ interface cityState {
       wind: number;
       img: string;
       text: string;
+      countryCode:string
     }
   ];
 }
@@ -30,6 +31,7 @@ const initialState: cityState = {
       wind: 0,
       img: "",
       text: "",
+      countryCode:""
     },
   ],
 };
@@ -41,10 +43,11 @@ const citySlice = createSlice({
     builder.addCase(fetchData.fulfilled, (state, action) => {
       const data = action.payload.data.hourly;
       const currentData = action.payload.currentData;
-      console.log();
+     
       //with -2 results are correct
       const today = new Date(),
-        time = today.getHours()-2;
+        time = today.getHours() - 2;
+        console.log(currentData.temperature,data.temperature_2m[time]);
       state.cities.push({
         name: action.payload.cityName,
         country: action.payload.countryName,
@@ -56,6 +59,7 @@ const citySlice = createSlice({
         wind: currentData.windspeed,
         img: "",
         text: "",
+        countryCode:action.payload.countryCode
       });
     });
   },
@@ -68,6 +72,7 @@ export const fetchData = createAsyncThunk(
     lon: number;
     cityName: string;
     countryName: string;
+    countryCode:string
   }) => {
     const data = await axios
       .get(
@@ -80,6 +85,7 @@ export const fetchData = createAsyncThunk(
           data: response.data,
           cityName: obj.cityName,
           countryName: obj.countryName,
+          countryCode:obj.countryCode
         };
       });
     return data;
