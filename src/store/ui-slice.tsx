@@ -6,7 +6,7 @@ interface uiState {
 const initialState: uiState = { isSignedIn: true, selectedCity: 0 };
 const uiSlice = createSlice({
   name: "ui",
-  initialState,
+  initialState: initialState as uiState,
   reducers: {
     signIn(state) {
       state.isSignedIn = !state.isSignedIn;
@@ -16,5 +16,5 @@ const uiSlice = createSlice({
     },
   },
 });
-export const { signIn,changeSelectedCity} = uiSlice.actions;
+export const { signIn, changeSelectedCity } = uiSlice.actions;
 export default uiSlice;
