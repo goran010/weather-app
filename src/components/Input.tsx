@@ -47,7 +47,7 @@ const Input = () => {
   useEffect(() => {
     const timeOutId = setTimeout(() => {
       setSearchedName(inputedName);
-    }, 500);
+    }, 300);
     return () => clearTimeout(timeOutId);
   }, [inputedName]);
   //greska kod prebrzog submitanja
@@ -75,7 +75,7 @@ const Input = () => {
   return (
     <form
       onSubmit={getDataHandler}
-      className="relative rounded-md shadow-sm w-3/6"
+      className="relative rounded-md shadow-sm sm:w-3/6 w-full sm:order-1 order-2 "
     >
       <input
         ref={cityInputData}
@@ -83,7 +83,7 @@ const Input = () => {
         type="text"
         name="price"
         id="price"
-        className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full pl-3 p-2 z-10 relative"
+        className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full pl-3 p-2 z-10 relative "
         placeholder="Search..."
       />
       {searchedName !== "" && searchedName.length > 2 && (

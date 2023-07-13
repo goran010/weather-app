@@ -38,7 +38,7 @@ const InputDropdown = ({
   }, [searchedName]);
 
   return (
-    <ul className="absolute w-full flex flex-col bg-white min-w-max border-slate-200 border-2  rounded-bl-md rounded-br-md overflow-hidden top-5 left-0 pt-5">
+    <ul className="absolute w-full flex flex-col bg-white min-w-max border-slate-200 border-2 rounded-bl-md rounded-br-md overflow-hidden top-5  pt-5 ">
       {cities ? (
         cities.map((item) => {
           return (
@@ -59,12 +59,18 @@ const InputDropdown = ({
                 countryCode={item.country_code.toLowerCase()}
                 className="h-6"
               />
-              <p className="font">{`
+              <p className="font flex flex-col sm:flex-row">
+                <span>
+                  {" "}
+                  {`
               ${item.name}, 
-              ${item.admin1 ? `${item.admin1}, (` : "("} 
+              ${item.admin1 ? `${item.admin1},` : "("} 
+              `}
+                </span>
+                <span>{`
               ${
                 item.latitude.toFixed(2)
-                  ? `${item.latitude.toFixed(2)}°E ,`
+                  ? ` (${item.latitude.toFixed(2)}°E ,`
                   : ""
               }   
               ${
@@ -72,7 +78,8 @@ const InputDropdown = ({
                   ? `${item.latitude.toFixed(2)}°N  ,`
                   : ""
               } 
-              ${item.elevation ? `${item.elevation}m ` : ""})`}</p>
+              ${item.elevation ? `${item.elevation}m ` : ""})`}</span>
+              </p>
             </li>
           );
         })
