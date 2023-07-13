@@ -11,23 +11,35 @@ const Footer = () => {
                 About
               </a>
             </li>
-           
+
             <li>
-              <a href="https://github.com/goran010" className=" hover:underline sm:mr-6 ">
+              <a
+                href="https://github.com/goran010"
+                target="_blank"
+                className="  hover:underline sm:mr-6 "
+              >
                 GitHub
               </a>
             </li>
             <li>
-              <a href="https://www.linkedin.com/in/goran-markovi%C4%87-b2662920a/" className="hover:underline">
+              <a
+                href="https://www.linkedin.com/in/goran-markovi%C4%87-b2662920a/"
+                target="_blank"
+                className="hover:underline"
+              >
                 LinkedIn
               </a>
             </li>
           </ul>
         </div>
         <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
-        <span className="block text-sm text-gray-500 sm:text-center dark:text-gray-400">
+        <span className="block text-sm text-gray-500 text-center dark:text-gray-400">
           © 2023{" "}
-          <a href="https://github.com/goran010/weather-app" className="hover:underline">
+          <a
+            href="https://github.com/goran010/weather-app"
+            target="_blank"
+            className="hover:underline"
+          >
             Weather app - Goran Marković
           </a>
         </span>

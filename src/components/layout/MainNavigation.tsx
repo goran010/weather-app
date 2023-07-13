@@ -13,10 +13,10 @@ const MainNavigation = () => {
   });
   return (
     <header className="sm:px-36 px-12">
-      <div className=" mx-auto flex items-center justify-between pb-10 pt-5 ">
-        <h1 className="text-xl font-semibold">Weather app</h1>
+      <div className=" mx-auto flex flex-row justify-between pb-10 pt-5 flex-wrap sm:flex-nowrap gap-y-3">
+        <h1 className="text-xl font-semibold sm:max-w-max w-2/4 order-0">Weather app</h1>
         <Input />
-        <div className="flex pointer-events-auto">
+        <div className="flex pointer-events-auto sm:min-w-min w-2/4 justify-end sm:hidden">
           <button
             data-collapse-toggle="mobile-menu-3"
             type="button"
@@ -59,7 +59,7 @@ const MainNavigation = () => {
             <li >
               <NavLink
                 to={"/"}
-                className="bg-blue-700 md:bg-transparent  block pl-3 pr-4 py-2 text-base md:hover:text-blue-700 md:p-0 rounded"
+                className="bg-blue-700 md:bg-transparent  block pl-3 pr-4 py-2 text-base md:hover:text-blue-700 md:p-0 rounded order-2"
                 aria-current="page"
                 style={({ isActive }) => {
                   return {
@@ -74,7 +74,7 @@ const MainNavigation = () => {
               <li className="sm:block hidden">
                 <NavLink
                   to="/signIn"
-                  className="text-gray-700 hover:bg-gray-50 border-b border-gray-100 text-base md:hover:bg-transparent md:border-0 block pl-3 pr-4 py-2 md:hover:text-blue-700 md:p-0"
+                  className="text-gray-700 hover:bg-gray-50 border-b border-gray-100 text-base md:hover:bg-transparent md:border-0 block pl-3 pr-4 py-2 md:hover:text-blue-700 md:p-0 order-3"
                   style={({ isActive }) => {
                     return {
                       color: isActive ? "rgb(29 78 216)" : "rgb(55 65 81)",
@@ -88,7 +88,7 @@ const MainNavigation = () => {
           </ul>
         </nav>
         {isSignedIn && (
-          <li onClick={signInHandler} className="cursor-pointer sm:block hidden">
+          <li onClick={signInHandler} className="cursor-pointer sm:block hidden order-4">
             <h1>Sign Out</h1>
           </li>
         )}
