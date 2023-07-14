@@ -22,7 +22,7 @@ const fetchNames = async (cityName: string) => {
     lon: data.longitude,
     countryName: data.country,
     cityName: data.name,
-    countryCode:data.country_code.toLowerCase()
+    countryCode: data.country_code.toLowerCase(),
   };
 };
 const Input = () => {
@@ -34,13 +34,9 @@ const Input = () => {
 
   const getDataHandler = async (e: FormEvent) => {
     e.preventDefault();
-    if (cityInputData.current != null) {
-      try {
-        const cityData = await fetchNames(cityInputData.current.value.trim());
-        changeCity(cityData);
-      } catch (error) {
-        showError(error);
-      }
+    if (cityInputData.current!.value.trim() != "") {
+      const cityData = await fetchNames(cityInputData.current!.value.trim());
+      changeCity(cityData);
     }
   };
 
@@ -65,7 +61,7 @@ const Input = () => {
         lon: cityData.lon,
         cityName: cityData.cityName,
         countryName: cityData.countryName,
-        countryCode:cityData.countryCode
+        countryCode: cityData.countryCode,
       })
     );
     dispatch(changeSelectedCity());

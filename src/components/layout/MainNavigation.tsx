@@ -12,11 +12,11 @@ const MainNavigation = () => {
     return state.ui.isSignedIn;
   });
   return (
-    <header className="sm:px-36 px-12">
+    <header className="px-9 sm:px-28">
       <div className=" mx-auto flex flex-row justify-between pb-10 pt-5 flex-wrap sm:flex-nowrap gap-y-3">
-        <h1 className="text-xl font-semibold sm:max-w-max w-2/4 order-0">Weather app</h1>
+        <h1 className="text-xl font-semibold sm:max-w-max w-3/4 order-0">Weather app</h1>
         <Input />
-        <div className="flex pointer-events-auto sm:min-w-min w-2/4 justify-end sm:hidden">
+        <div className="flex pointer-events-auto sm:min-w-min w-1/4 justify-end sm:hidden">
           <button
             data-collapse-toggle="mobile-menu-3"
             type="button"
@@ -68,6 +68,20 @@ const MainNavigation = () => {
                 }}
               >
                 Home
+              </NavLink>
+            </li>
+            <li >
+              <NavLink
+                to={"/"}
+                className="bg-blue-700 md:bg-transparent  block pl-3 pr-4 py-2 text-base md:hover:text-blue-700 md:p-0 rounded order-2"
+                aria-current="page"
+                style={({ isActive }) => {
+                  return {
+                    color: isActive ? "rgb(29 78 216)" : "rgb(55 65 81)",
+                  };
+                }}
+              >
+                About
               </NavLink>
             </li>
             {!isSignedIn && (
