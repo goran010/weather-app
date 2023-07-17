@@ -43,7 +43,9 @@ const homeLoader = async () => {
     wind: weatherData.windspeed_10m[day],
     img: "",
     text: "",
-    countryCode:'hr'
+    countryCode: "hr",
+    lon: lon,
+    lat: lat,
   };
 };
 function App() {

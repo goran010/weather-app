@@ -15,6 +15,8 @@ interface cityState {
       img: string;
       text: string;
       countryCode: string;
+      lat: number;
+      lon: number;
     }
   ];
 }
@@ -26,12 +28,14 @@ const initialState: cityState = {
       feelTemp: 0,
       humidity: 0,
       temp: 0,
-      uv: 1,
+      uv: 0,
       pressure: 0,
       wind: 0,
       img: "",
       text: "",
       countryCode: "",
+      lat: 0,
+      lon: 0,
     },
   ],
 };
@@ -58,6 +62,8 @@ const citySlice = createSlice({
         img: "",
         text: "",
         countryCode: action.payload.countryCode,
+        lat: action.payload.lat,
+        lon: action.payload.lon,
       });
     });
   },
@@ -77,8 +83,9 @@ export const fetchData = createAsyncThunk(
         `https://api.open-meteo.com/v1/forecast?latitude=${obj.lat}&longitude=${obj.lon}&hourly=temperature_2m,uv_index,surface_pressure,relativehumidity_2m,apparent_temperature,rain,cloudcover_low,windspeed_10m&current_weather=true&forecast_days=2&timezone=GMT`
       )
       .then((response) => {
-        console.log(response);
         return {
+          lon: obj.lon,
+          lat: obj.lat,
           currentData: response.data.current_weather,
           data: response.data,
           cityName: obj.cityName,
