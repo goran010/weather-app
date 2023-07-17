@@ -22,11 +22,10 @@ const WorldCities = () => {
   );
 
   return (
-    <div className="w-full h-full  bg-white shadow-2xl p-6 rounded-2xl border-2 border-gray-50 col-start-3 col-span-3 row-start-1 row-span-1">
+    <div className="w-full h-full  bg-white shadow-2xl p-6 rounded-2xl border-2 border-gray-50 col-start-3 col-span-3 row-start-1 row-span-2">
       <h2 className="w-full h-1/6"> World cities</h2>
       <div className="w-full h-4/6 flex justify-between flex-wrap max-[400px]:gap-x-0 gap-x-2">
         {citiesData.map((city, index) => {
-          console.log(city.name, city.longitude, city.latitude);
           return (
             <CityCard
               key={index}

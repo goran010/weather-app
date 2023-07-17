@@ -26,14 +26,12 @@ export const fetchCity = createAsyncThunk<
         const response = await axios.get(
           `https://geocoding-api.open-meteo.com/v1/search?name=${cityName}&count=1`
         );
-        console.log(response.data.results[0]);
         dataArray.push(response.data.results[0]);
       } catch (err) {
         console.error(err);
       }
     })
   );
-  console.log(dataArray);
   return dataArray;
 });
 
