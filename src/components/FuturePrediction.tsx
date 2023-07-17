@@ -1,6 +1,6 @@
 const FuturePrediction = () => {
   return (
-    <div className="w-full flex items-center justify-center col-span-5">
+    <div className="w-full flex items-center justify-center col-start-1 col-span-5 row-start-8 row-soan-2">
       <div className=" flex-column  w-full bg-white shadow-2xl p-6 rounded-2xl border-2 border-gray-50 gap-x-12">
         <div className="w-full flex justify-between flex-row flex-wrap  ">
           <div className="flex-column justify-items-center md:w-1/5  w-1/2   py-6 gap-3 min-h-max">
