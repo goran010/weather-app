@@ -5,9 +5,8 @@ import { fetchData } from "../store/city-slice";
 import { changeSelectedCity } from "../store/ui-slice";
 import axios from "axios";
 import InputDropdown from "./InputDropdown";
-const showError = (error: any) => {
-  alert(error);
-};
+import { fetchForecast } from "../store/forecast-slice";
+
 const fetchNames = async (cityName: string) => {
   const data = await axios
     .get(
@@ -34,9 +33,18 @@ const Input = () => {
 
   const getDataHandler = async (e: FormEvent) => {
     e.preventDefault();
-    if (cityInputData.current!.value.trim() != "") {
+    if (
+      cityInputData.current!.value.trim() !== "" &&
+      cityInputData.current!.value.trim().length > 3
+    ) {
       const cityData = await fetchNames(cityInputData.current!.value.trim());
-      changeCity(cityData);
+      await changeCity(cityData);
+      await dispatch(
+        fetchForecast({
+          lat: cityData.lat,
+          lon: cityData.lon,
+        })
+      );
     }
   };
 
@@ -65,6 +73,12 @@ const Input = () => {
       })
     );
     dispatch(changeSelectedCity());
+    dispatch(
+      fetchForecast({
+        lat: cityData.lat,
+        lon: cityData.lon,
+      })
+    );
     cityInputData.current!.value = "";
     setSearchedName("");
   };

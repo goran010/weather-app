@@ -31,7 +31,16 @@ const homeLoader = async () => {
       return response.data.hourly;
     })
     .catch((err) => console.error(err));
-
+  const forecastData = await axios
+    .get(
+      `https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&daily=temperature_2m_max,temperature_2m_min&timezone=GMT&forecast_days=5`
+    )
+    .then((response) => {
+      return {
+        maxTemp: response.data.daily.temperature_2m_max,
+        minTemp: response.data.daily.temperature_2m_min,
+      };
+    });
   return {
     name: cityData.city.charAt(0).toUpperCase() + cityData.city.slice(1),
     country: cityData.countryName,
@@ -46,6 +55,7 @@ const homeLoader = async () => {
     countryCode: "hr",
     lon: lon,
     lat: lat,
+    forecastData: forecastData,
   };
 };
 function App() {

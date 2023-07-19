@@ -1,5 +1,5 @@
 import WorldCities from "../components/WorldCities";
-import FuturePrediction from "../components/FuturePrediction";
+import Forecast from "../components/Forecast";
 import SelectedCity from "../components/SelectedCity";
 import WorldMap from "../components/WorldMap";
 
@@ -9,7 +9,7 @@ const Home = () => {
       <SelectedCity />
       <WorldCities />
       <WorldMap />
-      <FuturePrediction />
+      <Forecast />
     </main>
   );
 };
