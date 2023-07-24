@@ -17,6 +17,8 @@ interface cityState {
       countryCode: string;
       lat: number;
       lon: number;
+      weatherCode: string;
+      isDay: boolean;
     }
   ];
 }
@@ -36,6 +38,8 @@ const initialState: cityState = {
       countryCode: "",
       lat: 0,
       lon: 0,
+      weatherCode: "3",
+      isDay: true,
     },
   ],
 };
@@ -64,6 +68,8 @@ const citySlice = createSlice({
         countryCode: action.payload.countryCode,
         lat: action.payload.lat,
         lon: action.payload.lon,
+        weatherCode: action.payload.weatherCode,
+        isDay: action.payload.isDay,
       });
     });
   },
@@ -80,9 +86,10 @@ export const fetchData = createAsyncThunk(
   }) => {
     const data = await axios
       .get(
-        `https://api.open-meteo.com/v1/forecast?latitude=${obj.lat}&longitude=${obj.lon}&hourly=temperature_2m,uv_index,surface_pressure,relativehumidity_2m,apparent_temperature,rain,cloudcover_low,windspeed_10m&current_weather=true&forecast_days=2&timezone=GMT`
+        `https://api.open-meteo.com/v1/forecast?latitude=${obj.lat}&longitude=${obj.lon}&hourly=temperature_2m,uv_index,surface_pressure,relativehumidity_2m,apparent_temperature,rain,cloudcover_low,windspeed_10m,weathercode&current_weather=true&forecast_days=2&timezone=GMT`
       )
       .then((response) => {
+        console.log(response);
         return {
           lon: obj.lon,
           lat: obj.lat,
@@ -91,6 +98,8 @@ export const fetchData = createAsyncThunk(
           cityName: obj.cityName,
           countryName: obj.countryName,
           countryCode: obj.countryCode,
+          weatherCode: response.data.current_weather.weathercode,
+          isDay: response.data.current_weather.is_day === 0 ? false : true
         };
       });
     return data;

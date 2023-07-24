@@ -28,34 +28,39 @@ const homeLoader = async () => {
       `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,uv_index,surface_pressure,relativehumidity_2m,apparent_temperature,rain,cloudcover_low,windspeed_10m&current_weather=true`
     )
     .then((response) => {
-      return response.data.hourly;
+      console.log(response);
+      return response;
     })
     .catch((err) => console.error(err));
   const forecastData = await axios
     .get(
-      `https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&daily=temperature_2m_max,temperature_2m_min&timezone=GMT&forecast_days=5`
+      `https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=GMT&forecast_days=5`
     )
     .then((response) => {
       return {
         maxTemp: response.data.daily.temperature_2m_max,
         minTemp: response.data.daily.temperature_2m_min,
+        weatherCode: response.data.daily.weathercode,
       };
     });
+  const dataHourly = weatherData!.data.hourly;
   return {
     name: cityData.city.charAt(0).toUpperCase() + cityData.city.slice(1),
     country: cityData.countryName,
-    feelTemp: weatherData.apparent_temperature[day],
-    humidity: weatherData.temperature_2m[day],
-    temp: weatherData.temperature_2m[day],
-    uv: weatherData.uv_index[day],
-    pressure: weatherData.surface_pressure[day],
-    wind: weatherData.windspeed_10m[day],
+    feelTemp: dataHourly.apparent_temperature[day],
+    humidity: dataHourly.temperature_2m[day],
+    temp: dataHourly.temperature_2m[day],
+    uv: dataHourly.uv_index[day],
+    pressure: dataHourly.surface_pressure[day],
+    wind: dataHourly.windspeed_10m[day],
     img: "",
     text: "",
     countryCode: "hr",
     lon: lon,
     lat: lat,
     forecastData: forecastData,
+    weatherCode: weatherData!.data.current_weather.weathercode,
+    isDay: weatherData!.data.current_weather.is_day===0?false:true,
   };
 };
 function App() {

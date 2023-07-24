@@ -2,8 +2,21 @@ import { useStoreSelector } from "../store/hooks";
 import { useLoaderData } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { CircleFlag } from "react-circle-flags";
+import iconsData from "../assets/descriptions.json";
 
 const SelectedCity = () => {
+  interface WeatherData {
+    [key: string]: {
+      day: {
+        description: string;
+        image: string;
+      };
+      night: {
+        description: string;
+        image: string;
+      };
+    };
+  }
   const selectedCityIndex: number = useStoreSelector(
     (state) => state.ui.selectedCity
   );
@@ -21,8 +34,9 @@ const SelectedCity = () => {
     uv: number;
     wind: number;
     humidity: number;
-
-    countryCode:string
+    countryCode: string;
+    weatherCode: string;
+    isDay: boolean;
   };
   const [data, setData] = useState(loadedData);
 
@@ -30,7 +44,7 @@ const SelectedCity = () => {
     if (selectedCityIndex !== 0) {
       setData(cityData);
     }
-  }, [selectedCityIndex]);
+  }, [selectedCityIndex, cityData]);
 
   const {
     name,
@@ -43,18 +57,22 @@ const SelectedCity = () => {
     uv,
     wind,
     humidity,
-    countryCode
+    countryCode,
+    weatherCode,
+    isDay,
   } = data;
-
+  const icons: WeatherData = iconsData;
+  const icon = isDay===true
+    ? icons[weatherCode].day.image
+    : icons[weatherCode].night.image;
+  console.log(isDay);
   return (
     <div className="w-full h-full row-start-1 row-end-5 start-1 col-span-2 -z-20">
       <div className="w-full h-full bg-white shadow-2xl p-6 rounded-2xl border-2 border-gray-50  grid grid-cols-2 grid-rows-8 gap-x-8 min-h-min ">
         <div className="col-span-2 row-span-3 border-b-2 flex flex-col justify-between">
           <h2 className="text-xl font-bold w-full">Thursday, March 23, 2023</h2>
           <div className="flex gap-2 mt-2">
-            {" "}
             <h3 className="text-lg ">
-              {" "}
               <span className="font-semibold capitalize">{name}</span>,{" "}
               {country}
             </h3>
@@ -72,7 +90,7 @@ const SelectedCity = () => {
               </div>
             </div>
             <div className="flex items-center justify-center w-full">
-              <img src={img} alt="weather_icon" className="w-1/3 max-w-8" />
+              <img src={icon} alt="weather_icon" className="w-1/3 max-w-8" />
             </div>
           </div>
         </div>
