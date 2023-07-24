@@ -22,6 +22,7 @@ const Forecast = () => {
     forecastData: {
       maxTemp: number[];
       minTemp: number[];
+      weatherCode: number[];
     };
   };
 
@@ -48,6 +49,7 @@ const Forecast = () => {
                   maxTemp: day,
                   minTemp: forecastData.minTemp[index],
                   date: `${date.getDate() + index + 1}. ${date.getMonth()}.`,
+                  weatherCode: forecastData.weatherCode[index],
                 }}
               />
             );
