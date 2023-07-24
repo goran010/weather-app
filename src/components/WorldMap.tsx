@@ -37,7 +37,7 @@ const WorldMap = () => {
     if (selectedCityIndex !== 0) {
       setCords(cordsData);
     }
-  }, [selectedCityIndex]);
+  }, [selectedCityIndex, cordsData]);
 
   return (
     <ComposableMap
@@ -53,7 +53,7 @@ const WorldMap = () => {
                 geography={geo}
                 style={{
                   default: {
-                    fill: "#151552",
+                    fill: "rgb(23 32 52)",
                     outline: "none",
                   },
                   hover: {
@@ -61,7 +61,7 @@ const WorldMap = () => {
                     outline: "none",
                   },
                   pressed: {
-                    fill: "#3d3d8f",
+                    fill: "rgb(23 32 52)",
                     outline: "none",
                   },
                 }}
