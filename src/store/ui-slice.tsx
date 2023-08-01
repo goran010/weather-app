@@ -8,13 +8,19 @@ const uiSlice = createSlice({
   name: "ui",
   initialState: initialState as uiState,
   reducers: {
-    signIn(state) {
-      state.isSignedIn = !state.isSignedIn;
+    changeSignInStatus(state) {
+      if (state.isSignedIn===false) {
+        state.isSignedIn = true;
+      } else {
+        state.isSignedIn = false;
+      }
+
+      console.log(state.isSignedIn);
     },
     changeSelectedCity(state) {
       state.selectedCity++;
     },
   },
 });
-export const { signIn, changeSelectedCity } = uiSlice.actions;
+export const { changeSignInStatus, changeSelectedCity } = uiSlice.actions;
 export default uiSlice;

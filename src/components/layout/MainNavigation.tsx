@@ -1,20 +1,35 @@
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import Input from "../Input";
-import { signIn } from "../../store/ui-slice";
+import { auth } from "../../config/firebase";
+import { signOut } from "firebase/auth";
+import { changeSignInStatus } from "../../store/ui-slice";
 import { useSelector } from "react-redux/es/exports";
+
 const MainNavigation = () => {
   const dispatch = useDispatch();
-  const signInHandler = () => {
-    dispatch(signIn());
-  };
+
   const isSignedIn = useSelector((state: any) => {
     return state.ui.isSignedIn;
   });
+  console.log(isSignedIn);
+  console.log(auth?.currentUser?.email)
+  const signOutHandler = async () => {
+    try {
+      await signOut(auth);
+      
+      dispatch(changeSignInStatus());
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <header className="px-9 sm:px-28">
       <div className=" mx-auto flex flex-row justify-between pb-10 pt-5 flex-wrap sm:flex-nowrap gap-y-3">
-        <h1 className="text-xl font-semibold sm:max-w-max w-3/4 order-0">Weather app</h1>
+        <h1 className="text-xl font-semibold sm:max-w-max w-3/4 order-0">
+          Weather app
+        </h1>
         <Input />
         <div className="flex pointer-events-auto sm:min-w-min w-1/4 justify-end sm:hidden">
           <button
@@ -56,7 +71,7 @@ const MainNavigation = () => {
           id="mobile-menu-3"
         >
           <ul className="flex-col md:flex-row flex md:space-x-8 mt-4 md:mt-0 md:text-sm md:font-medium">
-            <li >
+            <li>
               <NavLink
                 to={"/"}
                 className="bg-blue-700 md:bg-transparent  block pl-3 pr-4 py-2 text-base md:hover:text-blue-700 md:p-0 rounded order-2"
@@ -70,9 +85,9 @@ const MainNavigation = () => {
                 Home
               </NavLink>
             </li>
-            <li >
+            <li>
               <NavLink
-                to={"/"}
+                to={"/About"}
                 className="bg-blue-700 md:bg-transparent  block pl-3 pr-4 py-2 text-base md:hover:text-blue-700 md:p-0 rounded order-2"
                 aria-current="page"
                 style={({ isActive }) => {
@@ -84,7 +99,7 @@ const MainNavigation = () => {
                 About
               </NavLink>
             </li>
-            {!isSignedIn && (
+            {isSignedIn && (
               <li className="sm:block hidden">
                 <NavLink
                   to="/signIn"
@@ -101,9 +116,9 @@ const MainNavigation = () => {
             )}
           </ul>
         </nav>
-        {isSignedIn && (
-          <li onClick={signInHandler} className="cursor-pointer sm:block hidden order-4">
-            <h1>Sign Out</h1>
+        {!isSignedIn && (
+          <li className="cursor-pointer sm:block hidden order-4">
+            <h1 onClick={signOutHandler}>Sign Out</h1>
           </li>
         )}
       </div>
