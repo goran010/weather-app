@@ -4,6 +4,7 @@ import SignUp from "./pages/SignUp";
 import Home from "./pages/Home";
 import ErrorPage from "./pages/ErrorPage";
 import RootLayout from "./pages/RootLayout";
+import AboutPage from "./pages/About";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import axios from "axios";
 let lat = 45.327,
@@ -60,7 +61,7 @@ const homeLoader = async () => {
     lat: lat,
     forecastData: forecastData,
     weatherCode: weatherData!.data.current_weather.weathercode,
-    isDay: weatherData!.data.current_weather.is_day===0?false:true,
+    isDay: weatherData!.data.current_weather.is_day === 0 ? false : true,
   };
 };
 function App() {
@@ -76,6 +77,7 @@ function App() {
         },
         { path: "/signIn", element: <SignIn /> },
         { path: "/signUp", element: <SignUp /> },
+        { path: "/About", element: <AboutPage /> },
       ],
       errorElement: <ErrorPage />,
     },
