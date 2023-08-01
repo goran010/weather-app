@@ -2,6 +2,7 @@ import React from "react";
 import { useStoreDispatch } from "../store/hooks";
 import { changeSelectedCity } from "../store/ui-slice";
 import { fetchData } from "../store/city-slice";
+import { fetchForecast } from "../store/forecast-slice";
 
 const CityCard = (props: {
   data: {
@@ -10,9 +11,11 @@ const CityCard = (props: {
     cityName: string;
     countryName: string;
     countryCode: string;
+    weatherCode: string;
+    isDay: boolean;
   };
 }) => {
-  const { cityName, lon, lat, countryCode, countryName } = props.data;
+  const { cityName, lon, lat, countryCode, countryName} =props.data;
   const dispatch = useStoreDispatch();
   const clickHandler = async () => {
     await dispatch(
@@ -25,6 +28,12 @@ const CityCard = (props: {
       })
     );
     dispatch(changeSelectedCity());
+    dispatch(
+      fetchForecast({
+        lat: lat,
+        lon: lon,
+      })
+    );
   };
 
   return (
@@ -35,7 +44,7 @@ const CityCard = (props: {
         </h3>
         <div className="flex">
           <h2 className="font-bold text-gray-600 text-center">15 °C</h2>{" "}
-          <h2 className="font-bold text-gray-600 text-center">15 °C</h2>
+          <img src="#" alt="" />
         </div>
       </div>
       <div

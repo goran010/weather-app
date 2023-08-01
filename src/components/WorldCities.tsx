@@ -10,6 +10,8 @@ interface CityData {
   latitude: number;
   country_code: string;
   country: string;
+  isDay: boolean;
+  weatherCode: string;
 }
 const WorldCities = () => {
   const dispatch = useStoreDispatch();
@@ -26,6 +28,7 @@ const WorldCities = () => {
       <h2 className="w-full h-1/6"> World cities</h2>
       <div className="w-full h-4/6 flex justify-between flex-wrap max-[400px]:gap-x-0 gap-x-2">
         {citiesData.map((city, index) => {
+     
           return (
             <CityCard
               key={index}
@@ -35,6 +38,8 @@ const WorldCities = () => {
                 lat: city.latitude,
                 countryCode: city.country_code.toLowerCase(),
                 countryName: city.country,
+                weatherCode: city.weatherCode,
+                isDay: city.isDay,
               }}
             ></CityCard>
           );
