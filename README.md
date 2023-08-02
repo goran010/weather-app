@@ -1,6 +1,6 @@
 # Weather App (In Development)
 
-![Weather App Screenshot](./path/to/screenshot.png)
+![Weather App Screenshot](./appScreenshot.png)
 
 ## Introduction
 
