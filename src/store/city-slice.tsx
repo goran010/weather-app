@@ -1,31 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { cityState } from "../Models/ModelsList";
 
-interface cityState {
+const initialState: { cities: cityState[] } = {
   cities: [
     {
-      name: string;
-      country: string;
-      feelTemp: number;
-      humidity: number;
-      temp: number;
-      uv: number;
-      pressure: number;
-      wind: number;
-      text: string;
-      countryCode: string;
-      lat: number;
-      lon: number;
-      weatherCode: string;
-      isDay: boolean;
-    }
-  ];
-}
-const initialState: cityState = {
-  cities: [
-    {
-      name: "",
-      country: "",
+      cityName: "",
+      countryName: "",
       feelTemp: 0,
       humidity: 0,
       temp: 0,
@@ -43,7 +24,7 @@ const initialState: cityState = {
 };
 const citySlice = createSlice({
   name: "country",
-  initialState: initialState as cityState,
+  initialState: initialState as { cities: cityState[] },
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchData.fulfilled, (state, action) => {
@@ -54,8 +35,8 @@ const citySlice = createSlice({
       const today = new Date(),
         time = today.getHours();
       state.cities.push({
-        name: action.payload.cityName,
-        country: action.payload.countryName,
+        cityName: action.payload.cityName,
+        countryName: action.payload.countryName,
         feelTemp: data.apparent_temperature[time],
         humidity: data.relativehumidity_2m[time],
         temp: currentData.temperature,

@@ -8,6 +8,7 @@ import { useStoreSelector } from "../store/hooks";
 import { useState, useEffect } from "react";
 import { useLoaderData } from "react-router-dom";
 import { ZoomableGroup } from "react-simple-maps";
+import { cityState } from "../Models/ModelsList";
 const WorldMap = () => {
   const selectedCityIndex: number = useStoreSelector(
     (state) => state.ui.selectedCity
@@ -16,20 +17,7 @@ const WorldMap = () => {
     (state) => state.city.cities[selectedCityIndex]
   );
 
-  const loadedData = useLoaderData() as {
-    name: string;
-    country: string;
-    temp: number;
-    feelTemp: number;
-    text: string;
-    pressure: number;
-    uv: number;
-    wind: number;
-    humidity: number;
-    countryCode: string;
-    lat: number;
-    lon: number;
-  };
+  const loadedData = useLoaderData() as cityState;
   const [cords, setCords] = useState(loadedData);
 
   useEffect(() => {

@@ -3,28 +3,19 @@ import { useStoreDispatch } from "../store/hooks";
 import { changeSelectedCity } from "../store/ui-slice";
 import { fetchData } from "../store/city-slice";
 import { fetchForecast } from "../store/forecast-slice";
+import { worldCityState } from "../Models/ModelsList";
 
-const CityCard = (props: {
-  data: {
-    lat: number;
-    lon: number;
-    cityName: string;
-    countryName: string;
-    countryCode: string;
-    weatherCode: string;
-    isDay: boolean;
-  };
-}) => {
-  const { cityName, lon, lat, countryCode, countryName} =props.data;
+const CityCard = (props: { data: worldCityState }) => {
+  const { cityName, countryName, feelTemp, lat, lon, countryCode } = props.data;
   const dispatch = useStoreDispatch();
   const clickHandler = async () => {
     await dispatch(
       fetchData({
         cityName,
-        lon,
-        lat,
-        countryCode,
         countryName,
+        lat,
+        lon,
+        countryCode,
       })
     );
     dispatch(changeSelectedCity());

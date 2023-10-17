@@ -3,7 +3,7 @@ import { useLoaderData } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { CircleFlag } from "react-circle-flags";
 import iconsData from "../assets/descriptions.json";
-
+import { cityState } from "../Models/ModelsList";
 const SelectedCity = () => {
   interface WeatherData {
     [key: string]: {
@@ -23,20 +23,7 @@ const SelectedCity = () => {
   let cityData = useStoreSelector(
     (state) => state.city.cities[selectedCityIndex]
   );
-  const loadedData = useLoaderData() as {
-    name: string;
-    country: string;
-    temp: number;
-    feelTemp: number;
-    text: string;
-    pressure: number;
-    uv: number;
-    wind: number;
-    humidity: number;
-    countryCode: string;
-    weatherCode: string;
-    isDay: boolean;
-  };
+  const loadedData = useLoaderData() as cityState;
   const [data, setData] = useState(loadedData);
 
   useEffect(() => {
@@ -46,8 +33,8 @@ const SelectedCity = () => {
   }, [selectedCityIndex, cityData]);
 
   const {
-    name,
-    country,
+    cityName,
+    countryName,
     temp,
     feelTemp,
     text,
@@ -70,8 +57,8 @@ const SelectedCity = () => {
           <h2 className="text-xl font-bold w-full">Thursday, March 23, 2023</h2>
           <div className="flex gap-2 mt-2">
             <h3 className="text-lg ">
-              <span className="font-semibold capitalize">{name}</span>,{" "}
-              {country}
+              <span className="font-semibold capitalize">{cityName}</span>,{" "}
+              {countryName}
             </h3>
             <CircleFlag countryCode={countryCode} className="h-7" />
           </div>

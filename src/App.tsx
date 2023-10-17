@@ -7,6 +7,8 @@ import RootLayout from "./pages/RootLayout";
 import AboutPage from "./pages/About";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import axios from "axios";
+
+
 let lat = 45.327,
   lon = 14.44;
 
@@ -46,8 +48,8 @@ const homeLoader = async () => {
     });
   const dataHourly = weatherData!.data.hourly;
   return {
-    name: cityData.city.charAt(0).toUpperCase() + cityData.city.slice(1),
-    country: cityData.countryName,
+    cityName: cityData.city.charAt(0).toUpperCase() + cityData.city.slice(1),
+    countryName: cityData.countryName,
     feelTemp: dataHourly.apparent_temperature[day],
     humidity: dataHourly.temperature_2m[day],
     temp: dataHourly.temperature_2m[day],

@@ -1,39 +1,47 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { RootState } from "../store/index";
+import { worldCityState } from "../Models/ModelsList";
+
 interface WorldCitiesState {
   cities: string[];
-  citiesData: object[];
+  citiesData: worldCityState[];
 }
+
 const initialState: WorldCitiesState = {
   cities: ["London", "Moscow", "New York", "Paris"],
   citiesData: [],
 };
 
-export const fetchCity = createAsyncThunk<
-  object[], // Type of the returned data (an array of objects)
-  void,
-  { state: RootState } // Extra argument configuration
->("worldCitiesSlice/fetchCity", async (_, { getState }) => {
-  const state: RootState = getState();
-  const citiesNames = state.worldCities.cities;
-
-  const dataArray: object[] = [];
-
-  await Promise.all(
-    citiesNames.map(async (cityName) => {
-      try {
-        const response = await axios.get(
-          `https://geocoding-api.open-meteo.com/v1/search?name=${cityName}&count=1`
-        );
-        dataArray.push(response.data.results[0]);
-      } catch (err) {
-        console.error(err);
-      }
-    })
-  );
-  return dataArray;
-});
+export const fetchCity = createAsyncThunk<worldCityState[]>(
+  "worldCitiesSlice/fetchCity",
+  async () => {
+    const citiesNames = initialState.cities;
+    let responseArray: worldCityState[] = [];
+    await Promise.all(
+      citiesNames.map(async (cityName) => {
+        try {
+          const response = await axios.get(
+            `https://geocoding-api.open-meteo.com/v1/search?name=${cityName}&count=1`
+          );
+          console.log(response.data.results[0]);
+          const data = response.data.results[0];
+          responseArray.push({
+            countryName: data.country,
+            lat: data.latitude,
+            lon: data.longitude,
+            countryCode: data.country_code.toLowerCase(),
+            cityName: data.name,
+            feelTemp: 15,
+          });
+        } catch (err) {
+          console.error(err);
+        }
+      })
+    );
+    return responseArray;
+  }
+);
 
 const worldCitiesSlice = createSlice({
   name: "WorldCities",
@@ -42,9 +50,7 @@ const worldCitiesSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchCity.fulfilled, (state, action) => {
       state.citiesData = [];
-      action.payload.forEach((item) => {
-        state.citiesData.push(item);
-      });
+      state.citiesData = action.payload;
     });
   },
 });

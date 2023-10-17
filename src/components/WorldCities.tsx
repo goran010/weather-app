@@ -4,23 +4,17 @@ import { useStoreDispatch, useStoreSelector } from "../store/hooks";
 import CityCard from "./CityCard";
 import { fetchCity } from "../store/worldCities-slice";
 import { useEffect } from "react";
-interface CityData {
-  name: string;
-  longitude: number;
-  latitude: number;
-  country_code: string;
-  country: string;
-  isDay: boolean;
-  weatherCode: string;
-}
+import { worldCityState } from "../Models/ModelsList";
+
 const WorldCities = () => {
   const dispatch = useStoreDispatch();
+
   useEffect(() => {
     dispatch(fetchCity());
-    // Dispatch the fetchCity action once when the component mounts
   }, [dispatch]);
+
   const citiesData = useStoreSelector(
-    (state) => state.worldCities.citiesData as CityData[]
+    (state) => state.worldCities.citiesData as worldCityState[]
   );
 
   return (
@@ -28,18 +22,16 @@ const WorldCities = () => {
       <h2 className="w-full h-1/6"> World cities</h2>
       <div className="w-full h-4/6 flex justify-between flex-wrap max-[400px]:gap-x-0 gap-x-2">
         {citiesData.map((city, index) => {
-     
           return (
             <CityCard
               key={index}
               data={{
-                cityName: city.name,
-                lon: city.longitude,
-                lat: city.latitude,
-                countryCode: city.country_code.toLowerCase(),
-                countryName: city.country,
-                weatherCode: city.weatherCode,
-                isDay: city.isDay,
+                cityName: city.cityName,
+                countryName: city.countryName,
+                feelTemp: city.feelTemp,
+                lat: city.lat,
+                lon: city.lon,
+                countryCode:city.countryCode
               }}
             ></CityCard>
           );

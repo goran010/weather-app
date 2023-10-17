@@ -1,12 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-interface forecastState {
-  forecastData: {
-    maxTemp: number[];
-    minTemp: number[];
-    weatherCode: number[];
-  };
-}
+import { forecastState } from "../Models/ModelsList";
+
 const initialState: forecastState = {
   forecastData: {
     maxTemp: [],
