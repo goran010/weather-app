@@ -29,7 +29,6 @@ const SelectedCity = () => {
     temp: number;
     feelTemp: number;
     text: string;
-    img: string;
     pressure: number;
     uv: number;
     wind: number;
@@ -52,7 +51,6 @@ const SelectedCity = () => {
     temp,
     feelTemp,
     text,
-    img,
     pressure,
     uv,
     wind,
@@ -65,7 +63,6 @@ const SelectedCity = () => {
   const icon = isDay===true
     ? icons[weatherCode].day.image
     : icons[weatherCode].night.image;
-  console.log(isDay);
   return (
     <div className="w-full h-full row-start-1 row-end-5 start-1 col-span-2 -z-20">
       <div className="w-full h-full bg-white shadow-2xl p-6 rounded-2xl border-2 border-gray-50  grid grid-cols-2 grid-rows-8 gap-x-8 min-h-min ">

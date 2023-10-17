@@ -22,7 +22,6 @@ const WorldMap = () => {
     temp: number;
     feelTemp: number;
     text: string;
-    img: string;
     pressure: number;
     uv: number;
     wind: number;
@@ -66,6 +65,7 @@ const WorldMap = () => {
                   },
                 }}
                 stroke="fff"
+                onClick={()=>console.log(geo)}
               />
             ))
           }

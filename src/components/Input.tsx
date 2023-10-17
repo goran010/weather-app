@@ -1,4 +1,4 @@
-import React from "react";
+
 import { FormEvent, useRef, useState, useEffect } from "react";
 import { useStoreDispatch } from "../store/hooks";
 import { fetchData } from "../store/city-slice";

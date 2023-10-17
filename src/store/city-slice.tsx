@@ -12,7 +12,6 @@ interface cityState {
       uv: number;
       pressure: number;
       wind: number;
-      img: string;
       text: string;
       countryCode: string;
       lat: number;
@@ -33,7 +32,6 @@ const initialState: cityState = {
       uv: 0,
       pressure: 0,
       wind: 0,
-      img: "",
       text: "",
       countryCode: "",
       lat: 0,
@@ -52,8 +50,9 @@ const citySlice = createSlice({
       const data = action.payload.data.hourly;
       const currentData = action.payload.currentData;
       //with -2 results are correct
+
       const today = new Date(),
-        time = today.getHours() - 2;
+        time = today.getHours();
       state.cities.push({
         name: action.payload.cityName,
         country: action.payload.countryName,
@@ -63,7 +62,6 @@ const citySlice = createSlice({
         uv: data.uv_index[time],
         pressure: data.surface_pressure[time],
         wind: currentData.windspeed,
-        img: "",
         text: "",
         countryCode: action.payload.countryCode,
         lat: action.payload.lat,
@@ -99,7 +97,7 @@ export const fetchData = createAsyncThunk(
           countryName: obj.countryName,
           countryCode: obj.countryCode,
           weatherCode: response.data.current_weather.weathercode,
-          isDay: response.data.current_weather.is_day === 0 ? false : true
+          isDay: response.data.current_weather.is_day === 0 ? false : true,
         };
       });
     return data;

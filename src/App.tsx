@@ -54,7 +54,6 @@ const homeLoader = async () => {
     uv: dataHourly.uv_index[day],
     pressure: dataHourly.surface_pressure[day],
     wind: dataHourly.windspeed_10m[day],
-    img: "",
     text: "",
     countryCode: "hr",
     lon: lon,
