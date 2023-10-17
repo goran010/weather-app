@@ -4,15 +4,44 @@ import {
   Geography,
   Marker,
 } from "react-simple-maps";
-import { useStoreSelector } from "../store/hooks";
-import { useState, useEffect } from "react";
+
+import { useStoreDispatch, useStoreSelector } from "../store/hooks";
+
+import { useState, useEffect, MouseEventHandler } from "react";
 import { useLoaderData } from "react-router-dom";
 import { ZoomableGroup } from "react-simple-maps";
 import { cityState } from "../Models/ModelsList";
+import WorldCapitals from "../assets/countryCapitals.json";
+import { fetchData } from "../store/city-slice";
+import { changeSelectedCity } from "../store/ui-slice";
+import { fetchForecast } from "../store/forecast-slice";
+import axios from "axios";
+
+const fetchNames = async (cityName: any) => {
+  const data = await axios
+    .get(
+      `https://geocoding-api.open-meteo.com/v1/search?name=${cityName}&count=1`
+    )
+    .then((response) => {
+      return response.data.results[0];
+    })
+    .catch((err) => console.error(err));
+
+  return {
+    lat: data.latitude,
+    lon: data.longitude,
+    countryName: data.country,
+    cityName: data.name,
+    countryCode: data.country_code.toLowerCase(),
+  };
+};
 const WorldMap = () => {
+  const dispatch = useStoreDispatch();
+
   const selectedCityIndex: number = useStoreSelector(
     (state) => state.ui.selectedCity
   );
+
   const cordsData = useStoreSelector(
     (state) => state.city.cities[selectedCityIndex]
   );
@@ -26,6 +55,24 @@ const WorldMap = () => {
     }
   }, [selectedCityIndex, cordsData]);
 
+  const countryClickHandler = async (countryName: string) => {
+    const capitalCity = WorldCapitals.find(
+      (country) => country.country == countryName
+    )!.city;
+
+    const { cityName, lat, lon, countryCode } = await fetchNames(capitalCity);
+    await dispatch(
+      fetchData({
+        cityName,
+        countryName,
+        lat,
+        lon,
+        countryCode,
+      })
+    );
+    dispatch(changeSelectedCity());
+    dispatch(fetchForecast({ lat: lat, lon: lon }));
+  };
   return (
     <ComposableMap
       projection="geoEqualEarth"
@@ -53,7 +100,7 @@ const WorldMap = () => {
                   },
                 }}
                 stroke="fff"
-                onClick={()=>console.log(geo)}
+                onClick={() => countryClickHandler(geo.properties.name)}
               />
             ))
           }

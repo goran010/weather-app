@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { RootState } from "../store/index";
 import { worldCityState } from "../Models/ModelsList";
 
 interface WorldCitiesState {
@@ -24,7 +23,6 @@ export const fetchCity = createAsyncThunk<worldCityState[]>(
           const response = await axios.get(
             `https://geocoding-api.open-meteo.com/v1/search?name=${cityName}&count=1`
           );
-          console.log(response.data.results[0]);
           const data = response.data.results[0];
           responseArray.push({
             countryName: data.country,

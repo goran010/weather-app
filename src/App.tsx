@@ -31,7 +31,6 @@ const homeLoader = async () => {
       `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,uv_index,surface_pressure,relativehumidity_2m,apparent_temperature,rain,cloudcover_low,windspeed_10m&current_weather=true`
     )
     .then((response) => {
-      console.log(response);
       return response;
     })
     .catch((err) => console.error(err));

@@ -1,4 +1,3 @@
-import React from "react";
 import { useStoreDispatch } from "../store/hooks";
 import { changeSelectedCity } from "../store/ui-slice";
 import { fetchData } from "../store/city-slice";
@@ -6,7 +5,7 @@ import { fetchForecast } from "../store/forecast-slice";
 import { worldCityState } from "../Models/ModelsList";
 
 const CityCard = (props: { data: worldCityState }) => {
-  const { cityName, countryName, feelTemp, lat, lon, countryCode } = props.data;
+  const { cityName, countryName, lat, lon, countryCode } = props.data;
   const dispatch = useStoreDispatch();
   const clickHandler = async () => {
     await dispatch(
