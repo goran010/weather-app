@@ -28,10 +28,6 @@
     "city": "The Valley"
   },
   {
-    "country": "Antarctica",
-    "city": null
-  },
-  {
     "country": "Antigua and Barbuda",
     "city": "Saint John's"
   },
@@ -53,7 +49,7 @@
   },
   {
     "country": "Austria",
-    "city": "Wien"
+    "city": "Wiena"
   },
   {
     "country": "Azerbaijan",
@@ -121,7 +117,7 @@
   },
   {
     "country": "British Indian Ocean Territory",
-    "city": null
+    "city": "London"
   },
   {
     "country": "Brunei",
@@ -169,7 +165,7 @@
   },
   {
     "country": "Chile",
-    "city": "Santiago de Chile"
+    "city": "Santiago"
   },
   {
     "country": "China",
@@ -185,7 +181,7 @@
   },
   {
     "country": "Colombia",
-    "city": "Santaf"
+    "city": "Bogota"
   },
   {
     "country": "Comoros",
@@ -209,7 +205,7 @@
   },
   {
     "country": "Cuba",
-    "city": "La Habana"
+    "city": "Havana"
   },
   {
     "country": "Cyprus",
@@ -217,7 +213,7 @@
   },
   {
     "country": "Czech Republic",
-    "city": "Praha"
+    "city": "Prague"
   },
   {
     "country": "Denmark",
@@ -285,7 +281,7 @@
   },
   {
     "country": "Finland",
-    "city": "Helsinki [Helsingfors]"
+    "city": "Helsinki "
   },
   {
     "country": "France",
@@ -301,7 +297,7 @@
   },
   {
     "country": "French Southern territories",
-    "city": null
+    "city": "paris"
   },
   {
     "country": "Gabon",
@@ -417,7 +413,7 @@
   },
   {
     "country": "Italy",
-    "city": "Roma"
+    "city": "Rome"
   },
   {
     "country": "Ivory Coast",
@@ -437,7 +433,7 @@
   },
   {
     "country": "Kazakhstan",
-    "city": "Astana"
+    "city": "Nur-sultan"
   },
   {
     "country": "Kenya",
@@ -549,7 +545,7 @@
   },
   {
     "country": "Mexico",
-    "city": "Ciudad de M"
+    "city": "mexico City"
   },
   {
     "country": "Micronesia, Federated States of",
@@ -665,11 +661,11 @@
   },
   {
     "country": "Palestine",
-    "city": "Gaza"
+    "city": "Jerusalem"
   },
   {
     "country": "Panama",
-    "city": "Ciudad de Panamá"
+    "city": "Panama city"
   },
   {
     "country": "Papua New Guinea",
@@ -693,7 +689,7 @@
   },
   {
     "country": "Poland",
-    "city": "Warszawa"
+    "city": "Warszaw"
   },
   {
     "country": "Portugal",
@@ -864,7 +860,7 @@
     "city": "Bangkok"
   },
   {
-    "country": "The Democratic Republic of Congo",
+    "country": "Democratic Republic of Congo",
     "city": "Kinshasa"
   },
   {
@@ -925,7 +921,7 @@
   },
   {
     "country": "United States Minor Outlying Islands",
-    "city": null
+    "city": "Washington"
   },
   {
     "country": "Uruguay",
@@ -933,7 +929,7 @@
   },
   {
     "country": "Uzbekistan",
-    "city": "Toskent"
+    "city": "tashkent"
   },
   {
     "country": "Vanuatu",
