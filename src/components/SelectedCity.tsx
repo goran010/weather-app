@@ -1,29 +1,26 @@
+//hooks
 import { useStoreSelector } from "../store/hooks";
 import { useLoaderData } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { CircleFlag } from "react-circle-flags";
+
+//icons
 import iconsData from "../assets/descriptions.json";
-import { cityState } from "../Models/ModelsList";
+import { CircleFlag } from "react-circle-flags";
+
+//interfaces
+import { cityState , weatherIconsData} from "../Models/ModelsList";
+
 const SelectedCity = () => {
-  interface WeatherData {
-    [key: string]: {
-      day: {
-        description: string;
-        image: string;
-      };
-      night: {
-        description: string;
-        image: string;
-      };
-    };
-  }
   const selectedCityIndex: number = useStoreSelector(
     (state) => state.ui.selectedCity
   );
+
   let cityData = useStoreSelector(
     (state) => state.city.cities[selectedCityIndex]
   );
+
   const loadedData = useLoaderData() as cityState;
+
   const [data, setData] = useState(loadedData);
 
   useEffect(() => {
@@ -46,10 +43,11 @@ const SelectedCity = () => {
     weatherCode,
     isDay,
   } = data;
-  const icons: WeatherData = iconsData;
-  const icon = isDay===true
-    ? icons[weatherCode].day.image
-    : icons[weatherCode].night.image;
+
+  const icons: weatherIconsData = iconsData;
+
+  const icon = icons[weatherCode][isDay ? "day" : "night"].image;
+
   return (
     <div className="w-full h-full row-start-1 row-end-5 start-1 col-span-2 -z-20">
       <div className="w-full h-full bg-white shadow-2xl p-6 rounded-2xl border-2 border-gray-50  grid grid-cols-2 grid-rows-8 gap-x-8 min-h-min ">

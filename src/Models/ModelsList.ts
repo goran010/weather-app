@@ -31,3 +31,15 @@ export interface worldCityState {
   lon: number;
   countryCode: string;
 }
+export interface weatherIconsData {
+  [key: string]: {
+    day: {
+      description: string;
+      image: string;
+    };
+    night: {
+      description: string;
+      image: string;
+    };
+  };
+}
