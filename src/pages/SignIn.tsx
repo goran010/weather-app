@@ -2,25 +2,34 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { changeSignInStatus } from "../store/ui-slice";
 import { useNavigate } from "react-router-dom";
-import { auth, googleProvider } from "../config/firebase";
-import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { auth } from "../firebase/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useRef } from "react";
 
 const SignIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const email = useRef<HTMLInputElement>(null);
-  const password = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
 
   const signInHandler = async (e: React.FormEvent<EventTarget>) => {
     e.preventDefault();
     try {
-      await createUserWithEmailAndPassword(
+      signInWithEmailAndPassword(
         auth,
-        email.current!.value,
-        password.current!.value
-      );
+        emailRef.current!.value,
+        passwordRef.current!.value
+      )
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+        });
       dispatch(changeSignInStatus());
       navigate("/");
     } catch (error) {
@@ -31,7 +40,7 @@ const SignIn = () => {
   const signInWithGoogleHandler = async (e: React.FormEvent<EventTarget>) => {
     e.preventDefault();
     try {
-      await signInWithPopup(auth, googleProvider);
+      //  await signInWithPopup(auth, googleProvider);
     } catch (error) {
       console.log(error);
     }
@@ -49,14 +58,14 @@ const SignIn = () => {
         >
           <h1 className="mb-8 text-3xl text-center">Sign in</h1>
           <input
-            ref={email}
+            ref={emailRef}
             type="text"
             className="block border border-grey-light w-full p-3 rounded mb-4"
             name="email"
             placeholder="Email"
           />
           <input
-            ref={password}
+            ref={passwordRef}
             type="password"
             className="block border border-grey w-full p-3 rounded mb-4"
             name="password"

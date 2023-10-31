@@ -1,13 +1,41 @@
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import {  createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase/firebase";
+import { useRef } from "react";
+import { useDispatch } from "react-redux";
+import { changeSignInStatus } from "../store/ui-slice";
 const SignUp = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const signUpHandler = () => {
+
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+
+  const signUpHandler = (e: React.FormEvent<EventTarget>) => {
+    e.preventDefault();
+    createUserWithEmailAndPassword(
+      auth,
+      emailRef.current!.value,
+      passwordRef.current!.value
+    )
+      .then((userCredential) => {
+        // Signed up
+        const user = userCredential.user;
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ..
+      });
+    dispatch(changeSignInStatus());
     navigate("/");
   };
+
   return (
     <div className="bg-grey-lighter min-h-screen flex flex-col">
-      <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
+      <form className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2" onSubmit={signUpHandler}>
         <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
           <h1 className="mb-8 text-3xl text-center">Sign up</h1>
           <input
@@ -22,6 +50,7 @@ const SignUp = () => {
             className="block border border-grey-light w-full p-3 rounded mb-4"
             name="email"
             placeholder="Email"
+            ref={emailRef}
           />
 
           <input
@@ -29,6 +58,7 @@ const SignUp = () => {
             className="block border border-grey-light w-full p-3 rounded mb-4"
             name="password"
             placeholder="Password"
+            ref={passwordRef}
           />
           <input
             type="password"
@@ -40,7 +70,6 @@ const SignUp = () => {
           <button
             type="submit"
             className="w-full text-center py-3 rounded bg-green-500 text-white hover:bg-green-600 focus:outline-none my-1"
-            onClick={signUpHandler}
           >
             Create Account
           </button>
@@ -57,7 +86,7 @@ const SignUp = () => {
           </Link>
           .
         </div>
-      </div>
+      </form>
     </div>
   );
 };

@@ -1,22 +1,19 @@
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import Input from "../Input";
-import { auth } from "../../config/firebase";
-import { signOut } from "firebase/auth";
 import { changeSignInStatus } from "../../store/ui-slice";
-import { useSelector } from "react-redux/es/exports";
+import { useStoreSelector } from "../../store/hooks";
 
 const MainNavigation = () => {
   const dispatch = useDispatch();
 
-  const isSignedIn = useSelector((state: any) => {
+  const isSignedIn = useStoreSelector((state: any) => {
     return state.ui.isSignedIn;
   });
   console.log(isSignedIn);
-  console.log(auth?.currentUser?.email)
   const signOutHandler = async () => {
     try {
-      await signOut(auth);
+      
       
       dispatch(changeSignInStatus());
     } catch (error) {
