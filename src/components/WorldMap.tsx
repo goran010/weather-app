@@ -76,7 +76,7 @@ const WorldMap = () => {
   return (
     <ComposableMap
       projection="geoEqualEarth"
-      className="col-start 3 col-span-3 row-start-3 row-end-5  w-full bg-white shadow-2xl rounded-2xl border-2 border-gray-50 aspect-[16/10]"
+      className="col-start-8 col-end-13 row-start-4 row-span-4 bg-white shadow-2xl rounded-2xl border-2 border-gray-50 aspect-[16/11]"
     >
       <ZoomableGroup>
         <Geographies geography="\map.json">

@@ -8,7 +8,7 @@ interface WorldCitiesState {
 }
 
 const initialState: WorldCitiesState = {
-  cities: ["London", "Moscow", "New York", "Paris"],
+  cities: ["London", "Moscow", "New York", "Paris","Tokio"],
   citiesData: [],
 };
 
@@ -24,6 +24,7 @@ export const fetchCity = createAsyncThunk<worldCityState[]>(
             `https://geocoding-api.open-meteo.com/v1/search?name=${cityName}&count=1`
           );
           const data = response.data.results[0];
+          console.log(data)
           responseArray.push({
             countryName: data.country,
             lat: data.latitude,

@@ -1,4 +1,3 @@
-
 import { FormEvent, useRef, useState, useEffect } from "react";
 import { useStoreDispatch } from "../store/hooks";
 import { fetchData } from "../store/city-slice";
@@ -6,6 +5,8 @@ import { changeSelectedCity } from "../store/ui-slice";
 import axios from "axios";
 import InputDropdown from "./InputDropdown";
 import { fetchForecast } from "../store/forecast-slice";
+import { CiSearch } from "react-icons/ci";
+import { IoSearch } from "react-icons/io5";
 
 const fetchNames = async (cityName: string) => {
   const data = await axios
@@ -85,20 +86,20 @@ const Input = () => {
   return (
     <form
       onSubmit={getDataHandler}
-      className="relative rounded-md shadow-sm sm:w-3/6 w-full sm:order-1 order-2 "
+      className="z-20 col-start-6 col-end-13 flex flex-col h-min relative justify-end row-start-3 row-span-3 shadow-2xl rounded-lg border-2 border-gray-200"
     >
+      <IoSearch  className="h-5 w-5 absolute z-40 top-2 left-2 text-gray-800"/>
       <input
         ref={cityInputData}
         onChange={(event) => setInputedName(event.target.value.trim())}
         type="text"
-        name="price"
-        id="price"
-        className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full pl-3 p-2 z-10 relative "
-        placeholder="Search..."
+        name="citySearch"
+        id="citySearch"
+        className="bg-white rounded-lg text-gray-900 sm:text-sm  focus:ring-blue-500 focus:border-blue-500 
+        w-full h-10 pl-10 p-2 z-10 overflow-hidden "
+        placeholder="Search for a city..."
       />
-      {searchedName !== "" && searchedName.length > 2 && (
-        <InputDropdown searchedName={searchedName} changeCity={changeCity} />
-      )}
+      {searchedName !== "" && searchedName.length > 2 && (<InputDropdown searchedName={searchedName} changeCity={changeCity} />)}
     </form>
   );
 };

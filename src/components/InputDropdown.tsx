@@ -38,7 +38,7 @@ const InputDropdown = ({
   }, [searchedName]);
 
   return (
-    <ul className="absolute w-full flex flex-col bg-white min-w-max border-slate-200 border-2 rounded-bl-md rounded-br-md overflow-hidden top-5  pt-5 ">
+    <ul className="bg-white min-w-max border-slate-200 border-2 rounded-md absolute w-full top-0 pt-10">
       {cities ? (
         cities.map((item) => {
           return (

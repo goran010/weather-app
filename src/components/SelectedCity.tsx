@@ -6,9 +6,11 @@ import { useState, useEffect } from "react";
 //icons
 import iconsData from "../assets/descriptions.json";
 import { CircleFlag } from "react-circle-flags";
+import { FaRegStar } from "react-icons/fa";
+import { FaStar } from "react-icons/fa";
 
 //interfaces
-import { cityState , weatherIconsData} from "../Models/ModelsList";
+import { cityState, weatherIconsData } from "../Models/ModelsList";
 
 const SelectedCity = () => {
   const selectedCityIndex: number = useStoreSelector(
@@ -22,6 +24,7 @@ const SelectedCity = () => {
   const loadedData = useLoaderData() as cityState;
 
   const [data, setData] = useState(loadedData);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
     if (selectedCityIndex !== 0) {
@@ -48,58 +51,72 @@ const SelectedCity = () => {
 
   const icon = icons[weatherCode][isDay ? "day" : "night"].image;
 
-  return (
-    <div className="w-full h-full row-start-1 row-end-5 start-1 col-span-2 -z-20">
-      <div className="w-full h-full bg-white shadow-2xl p-6 rounded-2xl border-2 border-gray-50  grid grid-cols-2 grid-rows-8 gap-x-8 min-h-min ">
-        <div className="col-span-2 row-span-3 border-b-2 flex flex-col justify-between">
-          <h2 className="text-xl font-bold w-full">Thursday, March 23, 2023</h2>
-          <div className="flex gap-2 mt-2">
-            <h3 className="text-lg ">
-              <span className="font-semibold capitalize">{cityName}</span>,{" "}
-              {countryName}
-            </h3>
-            <CircleFlag countryCode={countryCode} className="h-7" />
-          </div>
+  const changeIsFavoriteStatus = () => {
+    setIsFavorite(!isFavorite);
+  };
 
-          <div className="w-full flex justify-between h-4/5  ">
-            <div className="flex w-1/2 ">
-              <div className="flex flex-col align-center justify-center gap-1">
-                <h2 className="flex text-2xl font-bold w-full">{temp} °C</h2>
-                <p className="flex text-base text-gray-500 w-full">
-                  Feels like +{feelTemp}&deg;C
-                </p>
-                <p className="flex text-base text-gray-500 w-full">{text}</p>
-              </div>
-            </div>
-            <div className="flex items-center justify-center w-full">
-              <img src={icon} alt="weather_icon" className="w-1/3 max-w-8" />
-            </div>
+  return (
+    <div className="col-start-1 col-end-7  xl:col-end-6 row-start-1 row-end-4 flex flex-col pt-6 ">
+      <div className="flex gap-2 text-xl content-end align-bottom">
+        <h3 className="text-2xl">
+          <span className="font-semibold capitalize">{cityName}</span>,{" "}
+          {countryName}
+        </h3>
+        <CircleFlag countryCode={countryCode} className="h-6 translate-y-0.5" />
+      </div>
+      <div className=" bg-white shadow-2xl p-6 py-8 rounded-2xl border-2 border-gray-50 relative h-full">
+        {isFavorite ? (
+          <FaStar
+            className="h-7 w-7 absolute top-3 right-3 cursor-pointer text-orange-500"
+            onClick={() => changeIsFavoriteStatus()}
+          />
+        ) : (
+          <FaRegStar
+            className="h-7 w-7 absolute top-4 right-4 text-black cursor-pointer"
+            onClick={() => changeIsFavoriteStatus()}
+          />
+        )}
+
+        <div className="flex justify-between">
+          <div className="flex items-center justify-center w-2/3">
+            <img src={icon} alt="weather_icon" />
+          </div>
+          <div className="flex w-1/3 flex-col gap-1 justify-center">
+            <h2 className="text-3xl font-bold min-w-max">{temp}°C</h2>
+            <p className="text-gray-500 min-w-max ">
+              Feels like +{feelTemp}&deg;C
+            </p>
+            <p className="text-gray-500 max-w-max">{text}</p>
           </div>
         </div>
-        <div className="col-span-2 row-span-4 flex justify-evenly items-center flex-wrap">
-          <div className="flex justify-between w-1/2 pr-5  pt-4 ">
-            <h2>Relative humidity</h2> <p>{humidity}%</p>
+        <div className="col-span-2 row-span-4 flex justify-evenly items-center flex-wrap gap-y-3 ">
+          <div className="flex justify-between w-1/2  pt-4 ">
+            <h2 className="w-9/12 min-w-max">Humidity</h2>{" "}
+            <p className="w-4/12">{humidity}%</p>
           </div>
-          <div className="flex justify-between w-1/2 pl-5 pt-4">
-            <h2>Pressure</h2> <p>{pressure} mb</p>
+          <div className="flex justify-between w-1/2 pt-4">
+            <h2 className="w-8/12">Pressure</h2>{" "}
+            <p className="w-4/12 min-w-max">{pressure} mb</p>
           </div>
-          <div className="flex w-1/2 justify-between pr-5 border-t-2 pt-11">
-            <h2>Max temp</h2> <p>30 °C</p>
+          <div className="flex w-1/2 justify-between">
+            <h2 className="w-9/12 min-w-max">Max temp</h2> <p className="w-4/12">30°C</p>
           </div>
-          <div className="flex w-1/2 justify-between pl-5 border-t-2 pt-11">
-            <h2>Min temp</h2> <p>13 °C</p>
+          <div className="flex w-1/2 justify-between ">
+            <h2 className="w-8/12">Min temp</h2> <p className="w-4/12">13 °C</p>
           </div>
-          <div className="flex w-1/2 justify-between pr-5 border-t-2 pt-11">
-            <h2>Visibility</h2> <p>Good</p>
+          <div className="flex w-1/2 justify-between">
+            <h2 className="w-9/12">Visibility</h2>{" "}
+            <p className="w-4/12">Good</p>
           </div>
-          <div className="flex w-1/2 justify-between pl-5 border-t-2 pt-11">
-            <h2>Wind</h2> <p>{wind} km/h</p>
+          <div className="flex w-1/2 justify-between ">
+            <h2 className="w-8/12">Wind</h2>{" "}
+            <p className="w-4/12 min-w-max">{wind} km/h</p>
           </div>
-          <div className="flex w-1/2 justify-between pr-5 border-t-2 pt-11">
-            <h2>UV indeks</h2> <p>{uv}</p>
+          <div className="flex w-1/2 justify-between">
+            <h2 className="w-9/12 min-w-max">UV indeks</h2> <p className="w-4/12">{uv}</p>
           </div>
-          <div className="flex w-1/2 justify-between pl-5 border-t-2 pt-11">
-            <h2>Moon</h2> <p>{uv}</p>
+          <div className="flex w-1/2 justify-between">
+            <h2 className="w-8/12">Moon</h2> <p className="w-4/12">{uv}</p>
           </div>
         </div>
       </div>

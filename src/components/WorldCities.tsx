@@ -1,9 +1,16 @@
 /*the possibility to fetching cities from firebase should be built in */
 
+//hooks
 import { useStoreDispatch, useStoreSelector } from "../store/hooks";
-import CityCard from "./CityCard";
-import { fetchCity } from "../store/worldCities-slice";
 import { useEffect } from "react";
+
+//components
+import CityCard from "./CityCard";
+
+//slice funstions
+import { fetchCity } from "../store/worldCities-slice";
+
+//interfaces
 import { worldCityState } from "../Models/ModelsList";
 
 const WorldCities = () => {
@@ -18,24 +25,26 @@ const WorldCities = () => {
   );
 
   return (
-    <div className="w-full h-full  bg-white shadow-2xl p-6 rounded-2xl border-2 border-gray-50 col-start-3 col-span-3 row-start-1 row-span-2">
-      <h2 className="w-full h-1/6"> World cities</h2>
-      <div className="w-full h-4/6 flex justify-between flex-wrap max-[400px]:gap-x-0 gap-x-2">
-        {citiesData.map((city, index) => {
-          return (
-            <CityCard
-              key={index}
-              data={{
-                cityName: city.cityName,
-                countryName: city.countryName,
-                feelTemp: city.feelTemp,
-                lat: city.lat,
-                lon: city.lon,
-                countryCode:city.countryCode
-              }}
-            ></CityCard>
-          );
-        })}
+    <div className="bg-white shadow-2xl rounded-2xl border-2 border-gray-50 col-start-7 xl:col-start-6  col-end-13 row-start-1 row-end-4 flex flex-col flex-wrap px-6">
+      <h2 className="w-full pt-6 text-lg">Favorite cities</h2>
+      <div className="w-full overflow-x-scroll scroll-smooth " id="scrollbar">
+        <div className="w-full flex gap-9 py-6 justify-between">
+          {citiesData.map((city, index) => {
+            return (
+              <CityCard
+                key={index}
+                data={{
+                  cityName: city.cityName,
+                  countryName: city.countryName,
+                  feelTemp: city.feelTemp,
+                  lat: city.lat,
+                  lon: city.lon,
+                  countryCode: city.countryCode,
+                }}
+              ></CityCard>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

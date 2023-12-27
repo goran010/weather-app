@@ -27,7 +27,7 @@ export const fetchForecast = createAsyncThunk(
   async (obj: { lat: number; lon: number }) => {
     const data = await axios
       .get(
-        `https://api.open-meteo.com/v1/forecast?latitude=${obj.lat}&longitude=${obj.lon}&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=GMT&forecast_days=5`
+        `https://api.open-meteo.com/v1/forecast?latitude=${obj.lat}&longitude=${obj.lon}&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=GMT&forecast_days=6`
       )
       .then((response) => {
         return {

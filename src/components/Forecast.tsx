@@ -30,7 +30,9 @@ const Forecast = () => {
     (state) => state.forecast.forecastData
   );
   const [forecastData, setForecastData] = useState(loadedData.forecastData);
+
   const date = new Date();
+
   useEffect(() => {
     if (selectedCityIndex !== 0) {
       setForecastData(forecastStoreData);
@@ -38,9 +40,9 @@ const Forecast = () => {
   }, [selectedCityIndex, forecastStoreData]);
 
   return (
-    <div className="w-full flex items-center justify-center col-start-1 col-span-5 row-start-8 row-soan-2">
-      <div className=" flex-column  w-full bg-white shadow-2xl p-6 rounded-2xl border-2 border-gray-50 gap-x-12">
-        <div className="w-full flex justify-between flex-row flex-wrap  ">
+    <div className="flex items-center justify-center">
+      <div className="w-full bg-white shadow-2xl rounded-2xl border-2 border-gray-50 gap-x-12">
+        <div className="w-full flex justify-between flex-wrap pt-3 pb-2 gap-y-14">
           {forecastData.maxTemp.map((day, index) => {
             return (
               <FuturePredictionCard

@@ -1,7 +1,50 @@
+/*tailwind*/
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/*ficons*/
+@import "~@flaticon/flaticon-uicons/css/all/all";
+
+/*fonts*/
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap");
-* {
+* { 
   font-family: "Roboto", sans-serif;
+}
+
+/*worldCities scrollbar*/
+#scrollbar::-webkit-scrollbar {
+  width: 20px;
+  height: 22px;
+}
+
+#scrollbar::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+#scrollbar::-webkit-scrollbar-thumb {
+  background-color: #d6dee1;
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+}
+#scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #a8bbbf;
+}
+
+/*main scrollbar*/
+::-webkit-scrollbar {
+  width: 20px;
+  height: 300px;
+}
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #a9afb1;
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #818f92;
 }
