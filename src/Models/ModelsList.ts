@@ -26,11 +26,14 @@ export interface forecastState {
 export interface worldCityState {
   cityName: string;
   countryName: string;
-  feelTemp: number;
+  temperature: number;
   lat: number;
   lon: number;
   countryCode: string;
+  weatherCode: number;
+  isDay: number;
 }
+
 export interface weatherIconsData {
   [key: string]: {
     day: {

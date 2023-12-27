@@ -69,7 +69,6 @@ export const fetchData = createAsyncThunk(
         `https://api.open-meteo.com/v1/forecast?latitude=${obj.lat}&longitude=${obj.lon}&hourly=temperature_2m,uv_index,surface_pressure,relativehumidity_2m,apparent_temperature,rain,cloudcover_low,windspeed_10m,weathercode&current_weather=true&forecast_days=2&timezone=GMT`
       )
       .then((response) => {
-        console.log(response);
         return {
           lon: obj.lon,
           lat: obj.lat,

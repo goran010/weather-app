@@ -8,7 +8,7 @@ interface WorldCitiesState {
 }
 
 const initialState: WorldCitiesState = {
-  cities: ["London", "Moscow", "New York", "Paris","Tokio"],
+  cities: ["London", "Moscow", "New York", "Sydney", "Tokio"],
   citiesData: [],
 };
 
@@ -20,18 +20,25 @@ export const fetchCity = createAsyncThunk<worldCityState[]>(
     await Promise.all(
       citiesNames.map(async (cityName) => {
         try {
-          const response = await axios.get(
+          const responseGeo = await axios.get(
             `https://geocoding-api.open-meteo.com/v1/search?name=${cityName}&count=1`
           );
-          const data = response.data.results[0];
-          console.log(data)
+          const dataGeo = responseGeo.data.results[0];
+
+          const responseWeather = await axios.get(
+            `https://api.open-meteo.com/v1/forecast?latitude=${dataGeo.latitude}&longitude=${dataGeo.longitude}&hourly=temperature_2m,uv_index,surface_pressure,relativehumidity_2m,apparent_temperature,rain,cloudcover_low,windspeed_10m,weathercode&current_weather=true&forecast_days=2&timezone=GMT`
+          );
+          const dataWeather = responseWeather.data.current_weather;
+
           responseArray.push({
-            countryName: data.country,
-            lat: data.latitude,
-            lon: data.longitude,
-            countryCode: data.country_code.toLowerCase(),
-            cityName: data.name,
-            feelTemp: 15,
+            countryName: dataGeo.country,
+            lat: dataGeo.latitude,
+            lon: dataGeo.longitude,
+            countryCode: dataGeo.country_code.toLowerCase(),
+            cityName: dataGeo.name,
+            temperature: dataWeather.temperature,
+            weatherCode: dataWeather.weathercode,
+            isDay: dataWeather.is_day,
           });
         } catch (err) {
           console.error(err);

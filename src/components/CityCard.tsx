@@ -10,12 +10,12 @@ import { fetchForecast } from "../store/forecast-slice";
 import iconsData from "../assets/descriptions.json";
 
 //interfaces
-import { worldCityState } from "../Models/ModelsList";
+import { worldCityState, weatherIconsData } from "../Models/ModelsList";
 
 const CityCard = (props: { data: worldCityState }) => {
   const dispatch = useStoreDispatch();
 
-  const { cityName, countryName, lat, lon, countryCode } = props.data;
+  const { cityName, countryName, lat, lon, countryCode,temperature, weatherCode,isDay } = props.data;
 
   const clickHandler = async () => {
     await dispatch(
@@ -36,7 +36,8 @@ const CityCard = (props: { data: worldCityState }) => {
     );
   };
 
-  const icon = iconsData[0][true ? "day" : "night"].image;
+  const icons: weatherIconsData = iconsData;
+  const icon = icons[weatherCode][isDay ? "day" : "night"].image;
 
   return (
     <div
@@ -48,7 +49,7 @@ const CityCard = (props: { data: worldCityState }) => {
           {props.data.cityName}
         </h3>
         <div className="flex flex-col pt-8">
-          <h2 className="font-bold text-xl text-gray-700 text-center">15 °C</h2>{" "}
+          <h2 className="font-bold text-xl text-gray-700 text-center">{ temperature} °C</h2>{" "}
           <img
             src={icon}
             alt="weather_icon"

@@ -36,10 +36,12 @@ const WorldCities = () => {
                 data={{
                   cityName: city.cityName,
                   countryName: city.countryName,
-                  feelTemp: city.feelTemp,
+                  temperature: city.temperature,
                   lat: city.lat,
                   lon: city.lon,
                   countryCode: city.countryCode,
+                  weatherCode: city.weatherCode,
+                  isDay: city.isDay
                 }}
               ></CityCard>
             );
