@@ -9,7 +9,7 @@
   },
   {
     "country": "Algeria",
-    "city": "Alger"
+    "city": "Algiers"
   },
   {
     "country": "American Samoa",
@@ -49,7 +49,7 @@
   },
   {
     "country": "Austria",
-    "city": "Wiena"
+    "city": "Vienna"
   },
   {
     "country": "Azerbaijan",
@@ -212,7 +212,7 @@
     "city": "Nicosia"
   },
   {
-    "country": "Czech Republic",
+    "country": "Czechia",
     "city": "Prague"
   },
   {
@@ -265,7 +265,7 @@
   },
   {
     "country": "Ethiopia",
-    "city": "Addis Abeba"
+    "city": "Addis Ababa"
   },
   {
     "country": "Falkland Islands",
@@ -281,7 +281,7 @@
   },
   {
     "country": "Finland",
-    "city": "Helsinki "
+    "city": "Helsinki Airport"
   },
   {
     "country": "France",
@@ -325,7 +325,7 @@
   },
   {
     "country": "Greece",
-    "city": "Athenai"
+    "city": "Athens"
   },
   {
     "country": "Greenland",
@@ -345,7 +345,7 @@
   },
   {
     "country": "Guatemala",
-    "city": "Ciudad de Guatemala"
+    "city": "Guatemala"
   },
   {
     "country": "Guinea",
@@ -416,7 +416,7 @@
     "city": "Rome"
   },
   {
-    "country": "Ivory Coast",
+    "country": "Cote d'Ivoire",
     "city": "Yamoussoukro"
   },
   {
@@ -476,7 +476,7 @@
     "city": "Monrovia"
   },
   {
-    "country": "Libyan Arab Jamahiriya",
+    "country": "Libya",
     "city": "Tripoli"
   },
   {
@@ -581,7 +581,7 @@
   },
   {
     "country": "Myanmar",
-    "city": "Rangoon (Yangon)"
+    "city": "Yangon"
   },
   {
     "country": "Namibia",
@@ -649,7 +649,7 @@
   },
   {
     "country": "Oman",
-    "city": "Masqat"
+    "city": "Muscat"
   },
   {
     "country": "Pakistan",
@@ -693,7 +693,7 @@
   },
   {
     "country": "Portugal",
-    "city": "Lisboa"
+    "city": "Lisbon"
   },
   {
     "country": "Puerto Rico",
@@ -821,7 +821,7 @@
   },
   {
     "country": "Sudan",
-    "city": "Khartum"
+    "city": "Khartoum"
   },
   {
     "country": "Suriname",
@@ -832,7 +832,7 @@
     "city": "Longyearbyen"
   },
   {
-    "country": "Swaziland",
+    "country": "Eswatini",
     "city": "Mbabane"
   },
   {
@@ -965,7 +965,7 @@
   },
   {
     "country": "Western Sahara",
-    "city": "El-Aai"
+    "city": "Laayoune"
   },
   {
     "country": "Yemen",
