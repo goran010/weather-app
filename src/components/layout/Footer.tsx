@@ -15,7 +15,7 @@ const Footer = () => {
                 href="https://github.com/goran010"
                 target="_blank"
                 rel="noreferrer"
-                className="  hover:underline sm:mr-6 "
+                className="hover:underline sm:mr-6 "
               >
                 GitHub
               </a>
@@ -32,7 +32,7 @@ const Footer = () => {
             </li>
           </ul>
         </div>
-        <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+        <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-4" />
         <span className="block text-sm text-gray-500 text-center dark:text-gray-400">
           © 2023{" "}
           <a

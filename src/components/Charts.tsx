@@ -14,25 +14,36 @@ export const data = [
 ];
 
 export const optionsTemperatureChart = {
-  title: "Maximal and minimal temperature in next 5 days, in celsius °C",
-  subtitle: "in celsius",
+  title: "Forecasted maximal and minimal temperature for the next five days",
+  titleTextStyle: {
+    fontSize: 14,
+    bold:false
+  },
   curveType: "function",
+  pointSize: 2,
   legend: { position: "bottom" },
+  chartArea: { width: "85%" },
   animation: {
     startup: true,
     easing: "linear",
-    duration: 1000,
+    duration: 500,
   },
 };
 
 export const optionsWindChart = {
-  title: "Maximal wind speed in next 5 days, in km/h ",
+  title: "Forecasted maximum wind speeds for the next five days",
+  titleTextStyle: {
+    fontSize: 14,
+    bold:false
+  },
   curveType: "function",
+  pointSize: 2,
   legend: { position: "bottom" },
+  chartArea: { width: "85%" },
   animation: {
     startup: true,
     easing: "linear",
-    duration: 1000,
+    duration: 500,
   },
 };
 
@@ -71,25 +82,26 @@ const Charts = () => {
 
   console.log(temperatureDataArray, data);
   return (
-    <div className="flex justify-between col-start-1 col-end-8 row-start-4 row-span-3 h-full gap-8">
-      <div className="w-full min-w-max h-full bg-white shadow-2xl rounded-2xl border-2 border-gray-50">
-        <Chart
-          chartType="LineChart"
-          data={[["day", "min temp", "max temp"], ...temperatureDataArray]}
-          options={optionsTemperatureChart}
-          height="100%"
-          width="100%"
-        />
-      </div>
-      <div className="w-full h-full bg-white shadow-2xl rounded-2xl border-2 border-gray-50">
-        <Chart
-          chartType="LineChart"
-          data={[["day", "wind speed"], ...windDataArray]}
-          options={optionsWindChart}
-          height="100%"
-          width="100%"
-        />
-      </div>
+    <div className="flex flex-col md:flex-row justify-between col-start-1 col-end-8 row-start-4 row-span-3 h-full gap-8 ">
+      <Chart
+        className="md:w-1/2 w-full h-full bg-white shadow-2xl rounded-2xl border-2 border-gray-50 overflow-hidden p-0 m-0"
+        chartType="LineChart"
+        data={[
+          ["date", "min temp °C ", "max temp °C "],
+          ...temperatureDataArray,
+        ]}
+        options={optionsTemperatureChart}
+        height="100%"
+        width="100%"
+      />
+      <Chart
+        className="md:w-1/2 w-full h-full bg-white shadow-2xl rounded-2xl border-2 border-gray-50 overflow-hidden"
+        chartType="LineChart"
+        data={[["DATE", "wind speed in km/h"], ...windDataArray]}
+        options={optionsWindChart}
+        height="100%"
+        width="100%"
+      />
     </div>
   );
 };

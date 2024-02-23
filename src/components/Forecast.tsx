@@ -30,7 +30,7 @@ const Forecast = () => {
   }, [selectedCityIndex, forecastStoreData]);
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex w-full items-center justify-center ">
       <div className="w-full bg-white shadow-2xl rounded-2xl border-2 border-gray-50 gap-x-12">
         <div className="w-full flex justify-between flex-wrap pt-3 pb-2 gap-y-14">
           {forecastData.maxTemp.map((maxTemp, index) => {
