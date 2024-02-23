@@ -6,6 +6,7 @@ const initialState: forecastState = {
   forecastData: {
     maxTemp: [],
     minTemp: [],
+    maxWind: [],
     weatherCode: [],
   },
 };
@@ -18,6 +19,7 @@ const forecastSlice = createSlice({
     builder.addCase(fetchForecast.fulfilled, (state, action) => {
       state.forecastData.maxTemp = action.payload.maxTemp;
       state.forecastData.minTemp = action.payload.minTemp;
+      state.forecastData.maxWind = action.payload.maxWind;
       state.forecastData.weatherCode = action.payload.weatherCode;
     });
   },
@@ -27,12 +29,13 @@ export const fetchForecast = createAsyncThunk(
   async (obj: { lat: number; lon: number }) => {
     const data = await axios
       .get(
-        `https://api.open-meteo.com/v1/forecast?latitude=${obj.lat}&longitude=${obj.lon}&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=GMT&forecast_days=6`
+        `https://api.open-meteo.com/v1/forecast?latitude=${obj.lat}&longitude=${obj.lon}&daily=temperature_2m_max,temperature_2m_min,wind_speed_10m_max,weathercode&timezone=GMT&forecast_days=6`
       )
       .then((response) => {
         return {
           maxTemp: response.data.daily.temperature_2m_max,
           minTemp: response.data.daily.temperature_2m_min,
+          maxWind: response.data.daily.wind_speed_10m_max,
           weatherCode: response.data.daily.weathercode,
         };
       });

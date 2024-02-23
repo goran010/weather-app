@@ -15,10 +15,34 @@ export interface cityState {
   isDay: boolean;
 }
 
+export interface forecastCityState {
+  cityName: string;
+  countryName: string;
+  feelTemp: number;
+  humidity: number;
+  temp: number;
+  uv: number;
+  pressure: number;
+  wind: number;
+  text: string;
+  countryCode: string;
+  lat: number;
+  lon: number;
+  weatherCode: string;
+  isDay: boolean;
+  forecastData: {
+    maxTemp: number[];
+    minTemp: number[];
+    maxWind: number[];
+    weatherCode: number[];
+  };
+}
+
 export interface forecastState {
   forecastData: {
     maxTemp: number[];
     minTemp: number[];
+    maxWind: number[];
     weatherCode: number[];
   };
 }
@@ -31,7 +55,7 @@ export interface worldCityState {
   lon: number;
   countryCode: string;
   weatherCode: number;
-  isDay: number;
+  isDay: boolean;
 }
 
 export interface weatherIconsData {

@@ -1,11 +1,14 @@
 import React from "react";
+//pages
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Home from "./pages/Home";
 import ErrorPage from "./pages/ErrorPage";
 import RootLayout from "./pages/RootLayout";
 import AboutPage from "./pages/About";
+//router
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+//axios
 import axios from "axios";
 
 let lat = 45.327,
@@ -24,7 +27,7 @@ const homeLoader = async () => {
       `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}7&localityLanguage=en`
     )
     .then((response) => response.data)
-    .catch((err) => console.error(err));
+
   const weatherData = await axios
     .get(
       `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,uv_index,surface_pressure,relativehumidity_2m,apparent_temperature,rain,cloudcover_low,windspeed_10m&current_weather=true`
@@ -32,19 +35,21 @@ const homeLoader = async () => {
     .then((response) => {
       return response;
     })
-    .catch((err) => console.error(err));
+  const dataHourly = weatherData!.data.hourly;
+
   const forecastData = await axios
     .get(
-      `https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=GMT&forecast_days=6`
-    )
+      `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min,wind_speed_10m_max,weathercode&timezone=GMT&forecast_days=6`
+      )
     .then((response) => {
       return {
         maxTemp: response.data.daily.temperature_2m_max,
         minTemp: response.data.daily.temperature_2m_min,
+        maxWind: response.data.daily.wind_speed_10m_max,
         weatherCode: response.data.daily.weathercode,
       };
     });
-  const dataHourly = weatherData!.data.hourly;
+  
   return {
     cityName: cityData.city.charAt(0).toUpperCase() + cityData.city.slice(1),
     countryName: cityData.countryName,
@@ -54,15 +59,15 @@ const homeLoader = async () => {
     uv: dataHourly.uv_index[day],
     pressure: dataHourly.surface_pressure[day],
     wind: dataHourly.windspeed_10m[day],
-    text: "",
     countryCode: "hr",
     lon: lon,
     lat: lat,
     forecastData: forecastData,
     weatherCode: weatherData!.data.current_weather.weathercode,
-    isDay: weatherData!.data.current_weather.is_day === 0 ? false : true,
+    isDay: weatherData!.data.current_weather.is_day,
   };
 };
+
 function App() {
   const router = createBrowserRouter([
     {
