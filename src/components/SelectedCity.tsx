@@ -21,10 +21,10 @@ const SelectedCity = () => {
     (state) => state.city.cities[selectedCityIndex]
   );
 
+  //loaded data from page loader
   const loadedData = useLoaderData() as cityState;
 
   const [data, setData] = useState(loadedData);
-  const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
     if (selectedCityIndex !== 0) {
@@ -47,10 +47,12 @@ const SelectedCity = () => {
     isDay,
   } = data;
 
+  //icons for weather code
   const icons: weatherIconsData = iconsData;
-
   const icon = icons[weatherCode][isDay ? "day" : "night"].image;
 
+  //select favorite city logic
+  const [isFavorite, setIsFavorite] = useState(false);
   const changeIsFavoriteStatus = () => {
     setIsFavorite(!isFavorite);
   };
@@ -67,7 +69,7 @@ const SelectedCity = () => {
       <div className=" bg-white shadow-2xl p-6 py-8 rounded-2xl border-2 border-gray-50 relative h-full">
         {isFavorite ? (
           <FaStar
-            className="h-7 w-7 absolute top-3 right-3 cursor-pointer text-orange-500"
+            className="h-7 w-7 absolute top-4 right-4 cursor-pointer text-orange-500"
             onClick={() => changeIsFavoriteStatus()}
           />
         ) : (

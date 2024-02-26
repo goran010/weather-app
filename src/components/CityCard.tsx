@@ -1,7 +1,7 @@
 //hooks
 import { useStoreDispatch } from "../store/hooks";
 
-//clice functions
+//slice functions
 import { changeSelectedCity } from "../store/ui-slice";
 import { fetchData } from "../store/city-slice";
 import { fetchForecast } from "../store/forecast-slice";
@@ -17,6 +17,7 @@ const CityCard = (props: { data: worldCityState }) => {
 
   const { cityName, countryName, lat, lon, countryCode,temperature, weatherCode,isDay } = props.data;
 
+  
   const clickHandler = async () => {
     await dispatch(
       fetchData({
@@ -28,7 +29,7 @@ const CityCard = (props: { data: worldCityState }) => {
       })
     );
     dispatch(changeSelectedCity());
-    dispatch(
+    await dispatch(
       fetchForecast({
         lat: lat,
         lon: lon,

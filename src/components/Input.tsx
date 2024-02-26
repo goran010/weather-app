@@ -5,7 +5,6 @@ import { changeSelectedCity } from "../store/ui-slice";
 import axios from "axios";
 import InputDropdown from "./InputDropdown";
 import { fetchForecast } from "../store/forecast-slice";
-import { CiSearch } from "react-icons/ci";
 import { IoSearch } from "react-icons/io5";
 
 const fetchNames = async (cityName: string) => {

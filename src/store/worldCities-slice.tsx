@@ -7,6 +7,8 @@ interface WorldCitiesState {
   citiesData: worldCityState[];
 }
 
+/*the possibility to fetching cities from firebase should be built in */
+
 const initialState: WorldCitiesState = {
   cities: ["London", "Moscow", "New York", "Sydney", "Tokio"],
   citiesData: [],

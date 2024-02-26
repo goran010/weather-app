@@ -1,5 +1,3 @@
-/*the possibility to fetching cities from firebase should be built in */
-
 //hooks
 import { useStoreDispatch, useStoreSelector } from "../store/hooks";
 import { useEffect } from "react";

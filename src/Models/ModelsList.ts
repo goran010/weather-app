@@ -70,3 +70,35 @@ export interface weatherIconsData {
     };
   };
 }
+
+//dropdown
+export interface ChangeCityParams {
+  lat: number;
+  lon: number;
+  cityName: string;
+  countryName: string;
+  countryCode: string;
+}
+
+export interface InputDropdownProps {
+  searchedName: string;
+  changeCity: ({
+    lat,
+    lon,
+    cityName,
+    countryName,
+    countryCode,
+  }: ChangeCityParams) => Promise<void>;
+}
+
+export interface CityLocationData {
+  id: number;
+  country: string;
+  name: string;
+  latitude: number;
+  longitude: number;
+  elevation: number;
+  country_code: string;
+  admin1: string;
+}
+

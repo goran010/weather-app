@@ -6,14 +6,15 @@ import Charts from "../components/Charts";
 
 const Home = () => {
   return (
-    <main className="px-8 sm:px-28 w-full lg:grid grid-cols-12 gap-x-16 gap-y-8 flex flex-col" id="main">
+    <main
+      className="px-6 sm:px-20 lg:px-28 w-full lg:grid grid-cols-12 gap-6 lg:gap-4 xl:gap-8 flex flex-col"
+      id="main"
+    >
       <SelectedCity />
       <WorldCities />
+      <Charts />
       <WorldMap />
-      <div className="flex flex-col row-start-4 row-span-4 col-start-1 col-end-8 gap-y-8 ">
-        <Charts />
-        <Forecast />
-      </div>
+      <Forecast />
     </main>
   );
 };

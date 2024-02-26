@@ -1,82 +1,121 @@
+//imported map features from https://www.react-simple-maps.io/
 import {
   ComposableMap,
   Geographies,
   Geography,
   Marker,
+  ZoomableGroup,
 } from "react-simple-maps";
 
+//hooks
 import { useStoreDispatch, useStoreSelector } from "../store/hooks";
-
-import { useState, useEffect, MouseEventHandler } from "react";
+import { useState, useEffect } from "react";
 import { useLoaderData } from "react-router-dom";
-import { ZoomableGroup } from "react-simple-maps";
-import { cityState } from "../Models/ModelsList";
+
+//list of world countires and it's capital cities
 import WorldCapitals from "../assets/countryCapitals.json";
+
+//interfaces
+import { cityState } from "../Models/ModelsList";
+
+//actions from slices
 import { fetchData } from "../store/city-slice";
 import { changeSelectedCity } from "../store/ui-slice";
 import { fetchForecast } from "../store/forecast-slice";
+
+//axios from  https://axios-http.com/
 import axios from "axios";
 
-const fetchNames = async (cityName: any) => {
-  const data = await axios
-    .get(
-      `https://geocoding-api.open-meteo.com/v1/search?name=${cityName}&count=1`
-    )
+//fetch data for selected capital city
+const fetchCapitalCityData = async (capitalCityName: any) => {
+  const apiURL = `https://geocoding-api.open-meteo.com/v1/search?name=${capitalCityName}&count=1`;
+
+  const fetchedCityData = await axios
+    .get(apiURL)
     .then((response) => {
       return response.data.results[0];
     })
     .catch((err) => console.error(err));
 
   return {
-    lat: data.latitude,
-    lon: data.longitude,
-    countryName: data.country,
-    cityName: data.name,
-    countryCode: data.country_code.toLowerCase(),
+    lat: fetchedCityData.latitude,
+    lon: fetchedCityData.longitude,
+    countryName: fetchedCityData.country,
+    cityName: fetchedCityData.name,
+    countryCode: fetchedCityData.country_code.toLowerCase(),
   };
 };
+
 const WorldMap = () => {
   const dispatch = useStoreDispatch();
 
+  //index of selected city
   const selectedCityIndex: number = useStoreSelector(
     (state) => state.ui.selectedCity
   );
 
-  const cordsData = useStoreSelector(
-    (state) => state.city.cities[selectedCityIndex]
+  //name of selected city
+  const selectedCityName: string = useStoreSelector(
+    (state) => state.city.cities[selectedCityIndex].cityName
   );
 
-  const loadedData = useLoaderData() as cityState;
-  const [cords, setCords] = useState(loadedData);
+  const storeCityCordsData = useStoreSelector((state) => {
+    const { lon, lat } = state.city.cities[selectedCityIndex];
+    return [lon, lat];
+  });
 
+  //loaded data from page loader
+  const loadedData = useLoaderData() as cityState;
+  const [cityCordsData, setCityCords] = useState([
+    loadedData.lon,
+    loadedData.lat,
+  ]);
+
+  //if selectedCityIndex is changed schange cords data
   useEffect(() => {
     if (selectedCityIndex !== 0) {
-      setCords(cordsData);
+      setCityCords(storeCityCordsData);
     }
-  }, [selectedCityIndex, cordsData]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCityIndex]);
 
+  //event handler, click on map country
   const countryClickHandler = async (countryName: string) => {
-    const capitalCity = WorldCapitals.find(
-      (country) => country.country == countryName
-    )!.city;
+    //find name of capital city for selected country
+    const { city } = WorldCapitals.find(
+      (country) => country.country === countryName
+    )!;
 
-    const { cityName, lat, lon, countryCode } = await fetchNames(capitalCity);
-    await dispatch(
-      fetchData({
-        cityName,
-        countryName,
-        lat,
-        lon,
-        countryCode,
-      })
-    );
-    dispatch(changeSelectedCity());
-    dispatch(fetchForecast({ lat: lat, lon: lon }));
+    //check if that city is alredy selected
+    if (city?.toLowerCase() !== selectedCityName.toLowerCase()) {
+      //get data for new selected city
+      const { cityName, lat, lon, countryCode } = await fetchCapitalCityData(
+        city
+      );
+
+      //change weather data
+      await dispatch(
+        fetchData({
+          cityName,
+          countryName,
+          lat,
+          lon,
+          countryCode,
+        })
+      );
+
+      //get forecast data
+      await dispatch(fetchForecast({ lat, lon }));
+
+      //change data in ui
+      dispatch(changeSelectedCity());
+    }
   };
+
   return (
     <ComposableMap
       projection="geoEqualEarth"
-      className="col-start-8 col-end-13 row-start-4 row-span-4 bg-white shadow-2xl rounded-2xl border-2 border-gray-50 aspect-[16/11]"
+      className="col-start-8 col-end-13 row-start-4 row-span-4 xl:row-span-6  bg-white shadow-2xl rounded-2xl border-2 border-gray-50 "
     >
       <ZoomableGroup>
         <Geographies geography="\map.json">
@@ -105,9 +144,11 @@ const WorldMap = () => {
             ))
           }
         </Geographies>
-        <Marker coordinates={[cords.lon, cords.lat]}>
-          <circle r={3} fill="#F53" />
-        </Marker>
+        {cityCordsData[0] !== 0 && cityCordsData[1] !== 0 && (
+          <Marker coordinates={[cityCordsData[0], cityCordsData[1]]}>
+            <circle r={3} fill="#F53" />
+          </Marker>
+        )}
       </ZoomableGroup>
     </ComposableMap>
   );

@@ -8,9 +8,8 @@ const nav = () => {
         <div>
             <div className="flex pointer-events-auto sm:min-w-min w-1/4 justify-end sm:hidden">
           <button
-            data-collapse-toggle="mobile-menu-3"
             type="button"
-            className="md:hidden text-gray-400 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-300 rounded-lg inline-flex items-center justify-center"
+            className="md:hidden text-gray-400 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-300 rounded-lg inline-flex items-center justify-center cursor-pointer"
             aria-controls="mobile-menu-3"
             aria-expanded="false"
           >

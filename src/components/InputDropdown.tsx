@@ -1,28 +1,24 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+//hooks
+import React, { useEffect, useState } from "react";
+
+//axios
 import axios from "axios";
+
+//flag icons
 import { CircleFlag } from "react-circle-flags";
 
-const InputDropdown = ({
+//interfaces
+import { InputDropdownProps } from "../Models/ModelsList";
+import { CityLocationData } from "../Models/ModelsList";
+
+
+const InputDropdown: React.FC<InputDropdownProps> = ({
   searchedName,
   changeCity,
-}: {
-  searchedName: string;
-  changeCity({
-    lat,
-    lon,
-    cityName,
-    countryName,
-  }: {
-    lat: number;
-    lon: number;
-    cityName: string;
-    countryName: string;
-    countryCode: string;
-  }): Promise<void>;
 }) => {
-  const [cities, setCities] = useState([] as any[]);
+  const [cities, setCities] = useState([] as CityLocationData[]);
 
+  //get cities that match searched city
   const fetchNames = async (cityName: string) => {
     await axios
       .get(
@@ -33,6 +29,8 @@ const InputDropdown = ({
       })
       .catch((err) => console.error(err));
   };
+
+  //fetch new cities when searched term is changed
   useEffect(() => {
     fetchNames(searchedName);
   }, [searchedName]);
