@@ -93,11 +93,11 @@ const SelectedCity = () => {
         </div>
         <div className="col-span-2 row-span-4 flex justify-evenly items-center flex-wrap gap-y-3 ">
           <div className="flex justify-between w-1/2  pt-4 ">
-            <h2 className="w-9/12 min-w-max">Humidity</h2>{" "}
+            <h2 className="w-9/12 min-w-max">Humidity</h2>
             <p className="w-4/12">{humidity}%</p>
           </div>
           <div className="flex justify-between w-1/2 pt-4">
-            <h2 className="w-8/12">Pressure</h2>{" "}
+            <h2 className="w-8/12">Pressure</h2>
             <p className="w-4/12 min-w-max">{pressure} mb</p>
           </div>
           <div className="flex w-1/2 justify-between">
@@ -107,11 +107,11 @@ const SelectedCity = () => {
             <h2 className="w-8/12">Min temp</h2> <p className="w-4/12">13 °C</p>
           </div>
           <div className="flex w-1/2 justify-between">
-            <h2 className="w-9/12">Visibility</h2>{" "}
+            <h2 className="w-9/12">Visibility</h2>
             <p className="w-4/12">Good</p>
           </div>
           <div className="flex w-1/2 justify-between ">
-            <h2 className="w-8/12">Wind</h2>{" "}
+            <h2 className="w-8/12">Wind</h2>
             <p className="w-4/12 min-w-max">{wind} km/h</p>
           </div>
           <div className="flex w-1/2 justify-between">

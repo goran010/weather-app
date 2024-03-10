@@ -87,7 +87,7 @@ const Charts = () => {
   return (
     <div className="flex flex-col md:flex-row justify-between gap-8 row-start-4 row-span-4 xl:row-span-4 col-start-1 col-end-8">
       <Chart
-        className="md:w-1/2 w-full aspect-[16/9] md:aspect-auto bg-white shadow-2xl rounded-2xl border-2 border-gray-50 overflow-hidden"
+        className="md:w-1/2 w-full max-h-[400px] aspect-[16/9] md:aspect-auto bg-white shadow-2xl rounded-2xl border-2 border-gray-50 overflow-hidden"
         chartType="LineChart"
         data={[["date", "min temp °C ", "max temp °C "], ...temperatureDataArray]}
         options={optionsTemperatureChart}
@@ -95,7 +95,7 @@ const Charts = () => {
         width="100%"
       />
       <Chart
-        className="md:w-1/2 w-full h-full aspect-[16/9] md:aspect-auto bg-white shadow-2xl rounded-2xl border-2 border-gray-50 overflow-hidden"
+        className="md:w-1/2 w-full max-h-[400px] h-full aspect-[16/9] md:aspect-auto bg-white shadow-2xl rounded-2xl border-2 border-gray-50 overflow-hidden"
         chartType="LineChart"
         data={[["DATE", "wind speed in km/h"], ...windDataArray]}
         options={optionsWindChart}
