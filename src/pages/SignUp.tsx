@@ -1,41 +1,43 @@
 import { Link } from "react-router-dom";
+//hooks
 import { useNavigate } from "react-router-dom";
-import {  createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase/firebase";
+import { useStoreDispatch } from "../store/hooks";
 import { useRef } from "react";
-import { useDispatch } from "react-redux";
+
+//auth
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase/firebase";
+
+//slice actions
 import { changeSignInStatus } from "../store/ui-slice";
+
 const SignUp = () => {
-  const dispatch = useDispatch();
+  const dispatch = useStoreDispatch();
   const navigate = useNavigate();
 
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
-  const signUpHandler = (e: React.FormEvent<EventTarget>) => {
+  const signUpHandler = async (e: React.FormEvent<EventTarget>) => {
     e.preventDefault();
-    createUserWithEmailAndPassword(
+    await createUserWithEmailAndPassword(
       auth,
       emailRef.current!.value,
       passwordRef.current!.value
-    )
-      .then((userCredential) => {
-        // Signed up
-        const user = userCredential.user;
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // ..
-      });
+    ).then((userCredential) => {
+      // Signed up
+      const user = userCredential.user;
+    });
     dispatch(changeSignInStatus());
     navigate("/");
   };
 
   return (
     <div className="bg-grey-lighter min-h-screen flex flex-col">
-      <form className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2" onSubmit={signUpHandler}>
+      <form
+        className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2"
+        onSubmit={signUpHandler}
+      >
         <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
           <h1 className="mb-8 text-3xl text-center">Sign up</h1>
           <input

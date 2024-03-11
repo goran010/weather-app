@@ -85,7 +85,7 @@ const Input = () => {
   return (
     <form
       onSubmit={getDataHandler}
-      className="z-20 col-start-6 col-end-13 flex flex-col h-min relative justify-end row-start-3 row-span-3 shadow-2xl rounded-lg border-2 border-gray-200"
+      className="z-20 w-full flex flex-col h-min relative justify-end shadow-2xl rounded-lg border-2 border-gray-200"
     >
       <IoSearch  className="h-5 w-5 absolute z-40 top-2 left-2 text-gray-800"/>
       <input

@@ -1,13 +1,19 @@
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { changeSignInStatus } from "../store/ui-slice";
+//hooks
+import { useStoreDispatch } from "../store/hooks";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../firebase/firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
 import { useRef } from "react";
 
+//slice actions
+import { changeSignInStatus } from "../store/ui-slice";
+
+//auth
+import { auth, googleProvider } from "../firebase/firebase";
+import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+
+import { Link } from "react-router-dom";
+
 const SignIn = () => {
-  const dispatch = useDispatch();
+  const dispatch = useStoreDispatch();
   const navigate = useNavigate();
 
   const emailRef = useRef<HTMLInputElement>(null);
@@ -24,11 +30,9 @@ const SignIn = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          // ...
         })
         .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
+          console.log(error);
         });
       dispatch(changeSignInStatus());
       navigate("/");
@@ -40,7 +44,7 @@ const SignIn = () => {
   const signInWithGoogleHandler = async (e: React.FormEvent<EventTarget>) => {
     e.preventDefault();
     try {
-      //  await signInWithPopup(auth, googleProvider);
+      await signInWithPopup(auth, googleProvider);
     } catch (error) {
       console.log(error);
     }
