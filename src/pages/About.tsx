@@ -1,6 +1,6 @@
 const AboutPage = () => {
   return (
-    <main className="px-6 sm:px-20 lg:px-28 w-full flex flex-col min-h-screen items-center py-20 leading-7">
+    <main className="px-6 sm:px-20 lg:px-28 w-full flex flex-col min-h-screen items-center py-14 leading-7">
       <h1 className="w-5/6 mb-5 text-blue-900 text-2xl">About this app</h1>
       <div className="w-5/6">
         Welcome to Weather-App - a project built by a student developer to learn

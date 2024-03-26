@@ -19,7 +19,7 @@ const MobileNavigation: React.FC<{ isSignedIn: boolean;}> = ({ isSignedIn }) => 
 
   return (
     <div className="fixed top-0 left-0 h-screen lg:hidden z-50 w-full">
-      <div className="w-1/2 bg-white shadow-2xl rounded-r-2xl border-gray-50 h-full">
+      <div className="w-1/2 bg-gray-900 shadow-2xl rounded-r-2xl border-gray-50 h-full">
         <nav className="flex flex-col items-start justify-center align-middle w-full h-[92%]">
           <IoClose
             className="h-9 w-9 absolute top-4 left-[42%] cursor-pointer text-black-500 hover:text-red-600"
@@ -48,12 +48,12 @@ const MobileNavigation: React.FC<{ isSignedIn: boolean;}> = ({ isSignedIn }) => 
               onClick={() => dispatch(changeMenuOpen())}
               className="flex w-full h-14 justify-center items-center hover:bg-slate-600 hover:text-white"
             >
-              <CiLogin /> Sign In
+              <CiLogin className="inline-block mr-2" /> Sign In
             </NavLink>
           ) : (
-            <button className="w-full justify-center flex">
-              <PiSignOutBold />
-              Sign Out
+            <button className="flex w-full h-14 justify-center items-center hover:bg-slate-600 hover:text-white">
+              <PiSignOutBold className="inline-block mr-2"/>
+             Sign Out
             </button>
           )}
         </nav>

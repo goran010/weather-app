@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useStoreSelector } from "../../store/hooks";
 
 //slice actions
-import { changeMenuOpen} from "../../store/ui-slice";
+import { changeMenuOpen } from "../../store/ui-slice";
 
 //components
 import Profile from "../Profile";
@@ -24,29 +24,24 @@ const Header = () => {
     return state.ui.hamburgerMenuOpened;
   });
 
-  
-
   return (
-    <header className="px-6 sm:px-20 lg:px-28 sm:relative sticky top-0 bg-white z-20 mb-4">
-      <div className="flex flex-col justify-between py-3 lg:py-5 gap-3 lg:gap-5 lg:grid grid-cols-12 grid-rows-5 gap-x-16 content-end">
-        {/*mobile view */}
-        <RxHamburgerMenu
-          className="w-8 h-8 lg:hidden"
-          onClick={() => dispatch(changeMenuOpen())}
-        />
-        {isMenuOpened && <MobileNavigation isSignedIn={true} />}
+    <header className="px-6 sm:px-20 lg:px-28 lg:py-3 py-5 sm:relative sticky top-0 bg-gray-900 z-20 mb-4 text-white flex flex-col justify-between  gap-3 lg:gap-5 lg:grid grid-cols-12 grid-rows-1 gap-x-16 content-end">
+      {/*mobile view */}
+      <RxHamburgerMenu
+        className="w-8 h-8 lg:hidden"
+        onClick={() => dispatch(changeMenuOpen())}
+      />
+      {isMenuOpened && <MobileNavigation isSignedIn={true} />}
 
-        {/*desktop view */}
-        <div className="hidden lg:block col-start-1 col-end-1 row-start-2 row-span-4">
-          <Profile />
-        </div>
-        <div className="hidden lg:flex col-start-2 col-end-8 row-start-2 row-span-4">
-          <Navigation />
-        </div>
-        <div className="col-start-8 col-end-13 row-start-3 row-span-3">
+      {/*desktop view */}
+      <div className="hidden lg:block col-start-1 col-end-1">
+        <Profile />
+      </div>
+      <div className="hidden lg:flex col-start-2 col-end-8">
+        <Navigation />
+      </div>
+      <div className="col-start-9 col-end-13 h-full flex items-center">
         <Input />
-        </div>
-        
       </div>
     </header>
   );
