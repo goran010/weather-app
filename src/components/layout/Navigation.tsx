@@ -5,20 +5,20 @@ import { MouseEvent } from "react";
 import { NavLink } from "react-router-dom";
 
 //hooks
-import { useStoreSelector } from "../../store/hooks";
-import {useEffect, useState } from "react";
+import { useStoreDispatch, useStoreSelector } from "../../store/hooks";
+import { useEffect, useState } from "react";
 //auth
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
-
+import { fetchCities } from "../../store/worldCities-slice";
 
 const Navigation = () => {
+  const dispatch = useStoreDispatch();
   // Retrieve the sign-in status from the store
   const isSignedIn = useStoreSelector((state) => state.ui.isSignedIn);
-
+  
   // State to track the current user
   const [user, setUser] = useState(auth.currentUser);
-
   // Effect to update the current user when authentication state changes
   useEffect(() => {
     setUser(auth.currentUser);
@@ -30,8 +30,8 @@ const Navigation = () => {
       // Sign out the user
       await signOut(auth);
       // Update the user state
-      setUser(auth.currentUser);
-      // Log the current user
+
+      dispatch(fetchCities());
       console.log(auth.currentUser);
     } catch (error) {
       // Handle sign-out errors
@@ -55,13 +55,11 @@ const Navigation = () => {
 
   return (
     <nav className="w-full h-full flex justify-evenly items-center">
-
       <NavLink
         to={"/"}
         className="block pl-3 pr-4 py-2 text-base md:p-0 rounded"
         aria-current="page"
         style={({ isActive }) => ({
-
           color: isActive ? "rgb(51 171 240)" : "rgb(255 255 255)",
         })}
         onMouseOver={handleHover}
@@ -70,13 +68,11 @@ const Navigation = () => {
         Home
       </NavLink>
 
-
       <NavLink
         to={"/About"}
         className="block pl-3 pr-4 py-2 text-base md:p-0 rounded"
         aria-current="page"
         style={({ isActive }) => ({
-
           color: isActive ? "rgb(51 171 240)" : "rgb(255 255 255)",
         })}
         onMouseOver={handleHover}
@@ -84,7 +80,6 @@ const Navigation = () => {
       >
         About
       </NavLink>
-
 
       {!user && (
         <NavLink
@@ -113,6 +108,3 @@ const Navigation = () => {
 };
 
 export default Navigation;
-
-
-

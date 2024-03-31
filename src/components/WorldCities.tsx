@@ -6,17 +6,18 @@ import { useEffect } from "react";
 import CityCard from "./CityCard";
 
 //slice funstions
-import { fetchCity } from "../store/worldCities-slice";
+import { fetchCities } from "../store/worldCities-slice";
 
 //interfaces
 import { worldCityState } from "../Models/ModelsList";
+import { auth } from "../firebase/firebase";
 
 const WorldCities = () => {
   const dispatch = useStoreDispatch();
 
   useEffect(() => {
-    dispatch(fetchCity());
-  }, [dispatch]);
+    dispatch(fetchCities());
+  }, [dispatch,auth]);
 
   const citiesData = useStoreSelector(
     (state) => state.worldCities.citiesData as worldCityState[]

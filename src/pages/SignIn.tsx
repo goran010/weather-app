@@ -10,7 +10,9 @@ import { changeSignInStatus } from "../store/ui-slice";
 import { auth, googleProvider } from "../firebase/firebase";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 
+//router
 import { Link } from "react-router-dom";
+import { fetchCities } from "../store/worldCities-slice";
 
 const SignIn = () => {
   const dispatch = useStoreDispatch();
@@ -21,36 +23,35 @@ const SignIn = () => {
 
   const signInHandler = async (e: React.FormEvent<EventTarget>) => {
     e.preventDefault();
-    try {
-      signInWithEmailAndPassword(
-        auth,
-        emailRef.current!.value,
-        passwordRef.current!.value
-      )
-        .then((userCredential) => {
-          // Signed in
-          const user = userCredential.user;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      dispatch(changeSignInStatus());
-      navigate("/");
-    } catch (error) {
-      console.log(error);
-    }
+
+    await signInWithEmailAndPassword(
+      auth,
+      emailRef.current!.value,
+      passwordRef.current!.value
+    )
+      .then(() => {
+        console.log(auth.currentUser?.uid);
+        fetchCities();
+        dispatch(changeSignInStatus());
+
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const signInWithGoogleHandler = async (e: React.FormEvent<EventTarget>) => {
     e.preventDefault();
     try {
       await signInWithPopup(auth, googleProvider);
+      console.log(auth.currentUser?.uid);
     } catch (error) {
       console.log(error);
     }
-
-    dispatch(changeSignInStatus());
+    dispatch(fetchCities());
     navigate("/");
+    dispatch(changeSignInStatus());
   };
 
   return (

@@ -10,6 +10,10 @@ import AboutPage from "./pages/About";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 //axios
 import axios from "axios";
+import { auth } from "./firebase/firebase";
+import { signOut } from "firebase/auth";
+
+signOut(auth);
 
 let lat = 45.327,
   lon = 14.44;
