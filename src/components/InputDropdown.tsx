@@ -36,7 +36,7 @@ const InputDropdown: React.FC<InputDropdownProps> = ({
   }, [searchedName]);
 
   return (
-    <ul className="bg-white min-w-max border-slate-200 border-2 rounded-md absolute w-full top-0 pt-10">
+    <ul className="bg-white min-w-max border-slate-200 border-2 rounded-md absolute w-full top-0 pt-10 text-black">
       {cities ? (
         cities.map((item) => {
           return (
