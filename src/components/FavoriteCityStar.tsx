@@ -5,13 +5,14 @@ import { FaRegStar, FaStar } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import { useStoreDispatch } from "../store/hooks";
 
-//firebase
+//firebase, database
 import {
   collection,
   getDocs,
   updateDoc,
   DocumentReference,
 } from "firebase/firestore";
+//firebase, auth
 import { auth, db } from "../firebase/firebase";
 
 //actions
@@ -54,44 +55,47 @@ const FavoriteCityStar = ({ cityName }: { cityName: string }) => {
   }, [cityName, favoriteCities]); // Trigger effect when selected cityName changes
 
   const changeIsFavoriteStatus = async () => {
-    let newFavoriteCities: string[];
-    if (isFavorite) {
-      //remove city
-      newFavoriteCities = favoriteCities.filter((city) => city !== cityName);
-      if (favoriteCities.length < 4) {
-        //add new city if arrray is too short
-        const posibleCities = [
-          "London",
-          "Moscow",
-          "Berlin",
-          "Prague",
-          "Tokyo",
-        ].filter((city) => city !== cityName);
-        newFavoriteCities.push(posibleCities[0]);
+    if (auth.currentUser) {
+      let newFavoriteCities: string[];
+      if (isFavorite) {
+        //remove city
+        newFavoriteCities = favoriteCities.filter((city) => city !== cityName);
+        if (favoriteCities.length < 4) {
+          //add new city if arrray is too short
+          const posibleCities = [
+            "London",
+            "Moscow",
+            "Berlin",
+            "Prague",
+            "Tokyo",
+          ].filter((city) => city !== cityName);
+          newFavoriteCities.push(posibleCities[0]);
+        }
+      } else {
+        //add new one, remove old city
+        newFavoriteCities = [...favoriteCities.slice(0, 4), cityName];
       }
-    } else {
-      //add new one, remove old city
-      newFavoriteCities = [...favoriteCities.slice(0, 4), cityName];
-    }
 
-    if (selectedCityRef) {
-      try {
-        //update firebase data with new array
-        await updateDoc(selectedCityRef, {
-          cities: newFavoriteCities,
-          userUID: auth.currentUser?.uid,
-        });
-        dispatch(fetchCities());
-      } catch (error) {
-        console.log(error);
+      if (selectedCityRef) {
+        try {
+          //update firebase data with new array
+          await updateDoc(selectedCityRef, {
+            cities: newFavoriteCities,
+            userUID: auth.currentUser?.uid,
+          });
+          dispatch(fetchCities());
+        } catch (error) {
+          console.log(error);
+        }
       }
-    }
-    try {
       // Update state after successful update
       setIsFavorite(!isFavorite);
       setFavoriteCities(newFavoriteCities);
-    } catch (error) {
-      console.log("Error updating favorite cities:", error);
+    } else {
+      //if try to change status  isFavorite but not logged in
+      alert(
+        "Login to choose favorite citiesYou must be logged in to select your favorite cities"
+      );
     }
   };
 
