@@ -2,7 +2,7 @@
 import { Chart } from "react-google-charts";
 
 //hooks
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useStoreSelector } from "../store/hooks";
 import { useLoaderData } from "react-router-dom";
 
@@ -19,11 +19,6 @@ export const optionsTemperatureChart = {
   pointSize: 2,
   legend: { position: "bottom" },
   chartArea: { width: "85%" },
-  animation: {
-    startup: true,
-    easing: "linear",
-    duration: 500,
-  },
 };
 
 export const optionsWindChart = {
@@ -36,15 +31,10 @@ export const optionsWindChart = {
   pointSize: 2,
   legend: { position: "bottom" },
   chartArea: { width: "85%" },
-  animation: {
-    startup: true,
-    easing: "linear",
-    duration: 500,
-  },
 };
-
 // Function to calculate the date for the next days
-const getNextDays = (daysToAdd:number) => new Date(new Date().getTime() + (daysToAdd + 1) * 24 * 60 * 60 * 1000);
+const getNextDays = (daysToAdd: number) =>
+  new Date(new Date().getTime() + (daysToAdd + 1) * 24 * 60 * 60 * 1000);
 
 const Charts = () => {
   // State and selector hooks
@@ -56,55 +46,86 @@ const Charts = () => {
   const [forecastData, setForecastData] = useState(loadedData.forecastData);
 
   // Effect to update forecast data when selectedCityIndex or maxTempsData changes
+
   useEffect(() => {
     if (selectedCityIndex !== 0) {
-      setForecastData(maxTempsData);
+      console.log(maxTempsData);
+      if (maxTempsData.maxTemp.length > 0) {
+        setForecastData(maxTempsData);
+      }
     }
   }, [selectedCityIndex, maxTempsData]);
 
   // Function to generate temperature data array
-  const generateTemperatureDataArray = () => {
-    return forecastData.maxTemp.map((data, index) => ([
+  const generateTemperatureDataArray = useCallback((): [
+    string,
+    number,
+    number
+  ][] => {
+    return forecastData.maxTemp.map((data, index) => [
       `${getNextDays(index).getDate()}.${getNextDays(index).getMonth() + 1}.`,
       forecastData.minTemp[index],
       forecastData.maxTemp[index],
-    ]));
-  };
+    ]);
+  }, [forecastData]);
 
   // Function to generate wind data array
-  const generateWindDataArray = () => {
-    return forecastData.maxWind.map((data, index) => ([
+  const generateWindDataArray = useCallback((): [string, number][] => {
+    return forecastData.maxWind.map((data, index) => [
       `${getNextDays(index).getDate()}.${getNextDays(index).getMonth() + 1}.`,
       forecastData.maxWind[index],
-    ]));
-  };
+    ]);
+  }, [forecastData]);
 
   // Generate data arrays
-  const temperatureDataArray = generateTemperatureDataArray();
-  const windDataArray = generateWindDataArray();
+  const temperatureDataArray: [string, number, number][] =
+    generateTemperatureDataArray();
+  const windDataArray: [string, number][] = generateWindDataArray();
 
-  // Render charts
+  let chartsHeight;
+  if (window.innerWidth < 1280) {
+    chartsHeight = "100%";
+  }
+  if (window.innerWidth > 1280) {
+    chartsHeight = `${window.innerWidth / 7}px`;
+  }
+  if (window.innerWidth > 1550) {
+    chartsHeight = `${window.innerWidth / 6}px`;
+  }
+  if (window.innerWidth > 1810) {
+    chartsHeight = `${window.innerWidth / 5.5}px`;
+  }
+  if (window.innerWidth > 2100) {
+    chartsHeight = `${window.innerWidth / 5.5}px`;
+  }
+  if (window.innerWidth > 2400) {
+    chartsHeight = `${window.innerWidth / 5}px`;
+  }
+
+  console.log(temperatureDataArray);
   return (
-    <div className="flex flex-col md:flex-row justify-between gap-8 row-start-4 row-span-4 xl:row-span-4 col-start-1 col-end-8">
+    <div className="row-start-4 row-span-3 xl:row-span-3 col-start-1 col-end-8 flex flex-col md:flex-row justify-between w-full h-full gap-8">
       <Chart
-        className="md:w-1/2 w-full max-h-[400px] aspect-[16/9] md:aspect-auto bg-white shadow-2xl rounded-2xl border-2 border-gray-50 overflow-hidden"
+        className="bg-white shadow-2xl rounded-2xl border-2 border-gray-50 "
         chartType="LineChart"
-        data={[["date", "min temp °C ", "max temp °C "], ...temperatureDataArray]}
+        data={[
+          ["date", "min temp °C ", "max temp °C "],
+          ...temperatureDataArray,
+        ]}
         options={optionsTemperatureChart}
-        height="100%"
-        width="100%"
+        width={"100%"}
+        height={chartsHeight}
       />
+
       <Chart
-        className="md:w-1/2 w-full max-h-[400px] h-full aspect-[16/9] md:aspect-auto bg-white shadow-2xl rounded-2xl border-2 border-gray-50 overflow-hidden"
+        className="bg-white shadow-2xl rounded-2xl border-2 border-gray-50"
         chartType="LineChart"
         data={[["DATE", "wind speed in km/h"], ...windDataArray]}
         options={optionsWindChart}
-        height="100%"
-        width="100%"
+        width={"100%"}
+        height={chartsHeight}
       />
     </div>
   );
 };
-
 export default Charts;
-

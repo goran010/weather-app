@@ -94,7 +94,7 @@ const FavoriteCityStar = ({ cityName }: { cityName: string }) => {
     } else {
       //if try to change status  isFavorite but not logged in
       alert(
-        "Login to choose favorite citiesYou must be logged in to select your favorite cities"
+        "Login to choose favorite cities. You must be logged in to select your favorite cities"
       );
     }
   };

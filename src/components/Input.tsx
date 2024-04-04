@@ -85,9 +85,9 @@ const Input = () => {
   return (
     <form
       onSubmit={getDataHandler}
-      className="z-20 w-full flex flex-col h-min relative shadow-2xl rounded-lg border-2 border-gray-200"
+      className="z-20 w-full flex flex-col h-min relative  rounded-lg"
     >
-      <IoSearch className="h-5 w-5 absolute z-40 top-3 left-2 text-gray-800" />
+      <IoSearch className="h-5 w-5 absolute z-40 top-2.5 left-3 text-gray-800" />
       <input
         ref={cityInputData}
         onChange={(event) => setInputedName(event.target.value.trim())}
