@@ -1,4 +1,6 @@
+//redux
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+
 //axios
 import axios from "axios";
 
@@ -6,7 +8,7 @@ import axios from "axios";
 import { worldCityState } from "../Models/ModelsList";
 
 //firebase
-import { collection, getDocs } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../firebase/firebase";
 
 interface WorldCitiesState {
@@ -18,22 +20,22 @@ let initialState: WorldCitiesState = {
   cities: ["Rome", "Moscow", "Madrid", "Berlin", "London"],
   citiesData: [],
 };
-const usersCitiesRef = collection(db, "UsersCities");
 
 const getCitiesArray = async () => {
   if (auth.currentUser) {
-    // Fetching data from Firestore
-    const data = await getDocs(usersCitiesRef); // points to the collection of cities in Firestore
+    const data = await getDoc(doc(db, "UsersCities", auth.currentUser.uid));
 
-    console.log(data.docs); // Make sure 'auth' is properly defined and initialized
-
-    // Mapping the retrieved data to return id and cities array of the first document
-    return data.docs.map((doc) => ({
-      id: doc.id,
-      cities: doc.data().cities,
-    }))[0]; // Returning the first document's data}
+    if (data.exists()) {
+      // Mapping the retrieved data to return id and cities array of the first document
+      return {
+        id: data.data().userUID,
+        cities: data.data().cities,
+      }; // Returning the first document
+    } else {
+      return initialState; // Returning initial array if the document doesn't exist
+    }
   } else {
-    return initialState; // Returning initial array if an error occurs
+    return initialState; // Returning initial array if user is not authenticated
   }
 };
 
@@ -73,7 +75,6 @@ export const fetchCities = createAsyncThunk<worldCityState[]>(
             weatherCode: dataWeather.weathercode,
             isDay: dataWeather.is_day,
           });
-          console.log(responseArray);
         } catch (err) {
           console.error(err);
         }

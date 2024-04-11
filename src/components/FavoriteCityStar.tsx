@@ -11,6 +11,8 @@ import {
   getDocs,
   updateDoc,
   DocumentReference,
+  doc,
+  getDoc,
 } from "firebase/firestore";
 //firebase, auth
 import { auth, db } from "../firebase/firebase";
@@ -33,26 +35,33 @@ const FavoriteCityStar = ({ cityName }: { cityName: string }) => {
   useEffect(() => {
     const getStaredMovies = async () => {
       // Fetching data from Firestore
-      const data = await getDocs(usersCitiesRef);
+      try {
+        let data;
+        if (auth.currentUser) {
+          const docRef = doc(db, "UsersCities", auth.currentUser?.uid);
+          data = await getDoc(docRef);
+          setSelectedCityRef(docRef);
+          console.log(data.data());
+        }
+        // Mapping the retrieved data to return id and cities array of the first document
+        const favoriteCitiesData = {
+          id: data?.data()!.userUID,
+          cities: data?.data()!.cities,
+        }; // Returning the first document
+        console.log(favoriteCitiesData);
 
-      // Mapping the retrieved data to return id and cities array of the first document
-      const favoriteCitiesData = data.docs.map((doc) => ({
-        id: doc.id,
-        cities: doc.data().cities,
-      }))[0]; // Returning the first document
-
-      //setting refrence to current user document
-      setSelectedCityRef(data.docs[0].ref);
-
-      //showing visuali favorite cities
-      setIsFavorite(favoriteCitiesData.cities.includes(cityName));
-      setFavoriteCities(favoriteCitiesData.cities);
+        //showing favorite cities
+        setIsFavorite(favoriteCitiesData.cities.includes(cityName));
+        setFavoriteCities(favoriteCitiesData.cities);
+      } catch (error) {
+        console.log(error);
+      }
     };
     //if user is looged in send request
     if (auth.currentUser) {
       getStaredMovies();
     }
-  }, [cityName, favoriteCities]); // Trigger effect when selected cityName changes
+  }, [cityName]); // Trigger effect when selected cityName changes
 
   const changeIsFavoriteStatus = async () => {
     if (auth.currentUser) {

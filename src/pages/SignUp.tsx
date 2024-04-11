@@ -6,7 +6,9 @@ import { useRef } from "react";
 
 //auth
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase/firebase";
+import { auth, db } from "../firebase/firebase";
+
+import {collection, doc, setDoc } from "firebase/firestore";
 
 //slice actions
 import { changeSignInStatus } from "../store/ui-slice";
@@ -19,18 +21,35 @@ const SignUp = () => {
   const passwordRef = useRef<HTMLInputElement>(null);
 
   const signUpHandler = async (e: React.FormEvent<EventTarget>) => {
+    // Prevents the default form behavior to prevent page refresh
     e.preventDefault();
-    await createUserWithEmailAndPassword(
-      auth,
-      emailRef.current!.value,
-      passwordRef.current!.value
-    ).then((userCredential) => {
-      // Signed up
-      const user = userCredential.user;
-    });
-    dispatch(changeSignInStatus());
-    navigate("/");
+  
+    try {
+      // Attempts to create a new user using the entered email and password
+      await createUserWithEmailAndPassword(
+        auth,
+        emailRef.current!.value,
+        passwordRef.current!.value
+      );
+  
+      // If user creation is successful, sets a document in the "UsersCities" collection with data
+      if (auth.currentUser) {
+        await setDoc(doc(collection(db, "UsersCities"), auth.currentUser.uid), {
+          cities: ["Belgrade", "Zagreb", "Ljubljana", "Sarajevo", "Skopje"],
+          userUID: auth.currentUser.uid,
+          email: auth.currentUser.email
+        });
+      }
+  
+      // Updates the user sign-in status and redirects the user to the home page
+      dispatch(changeSignInStatus());
+      navigate("/");
+    } catch (error) {
+      // Handles errors that may occur during user creation or document setting
+      console.error("An error occurred during registration: ", error);
+    }
   };
+  
 
   return (
     <div className="bg-grey-lighter min-h-screen flex flex-col">

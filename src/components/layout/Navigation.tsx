@@ -5,18 +5,17 @@ import { MouseEvent } from "react";
 import { NavLink } from "react-router-dom";
 
 //hooks
-import { useStoreDispatch, useStoreSelector } from "../../store/hooks";
+import { useStoreDispatch} from "../../store/hooks";
 import { useEffect, useState } from "react";
 //auth
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
 import { fetchCities } from "../../store/worldCities-slice";
+import { changeSignInStatus } from "../../store/ui-slice";
 
 const Navigation = () => {
   const dispatch = useStoreDispatch();
-  // Retrieve the sign-in status from the store
-  const isSignedIn = useStoreSelector((state) => state.ui.isSignedIn);
-  
+
   // State to track the current user
   const [user, setUser] = useState(auth.currentUser);
   // Effect to update the current user when authentication state changes
@@ -27,15 +26,26 @@ const Navigation = () => {
   // Function to handle signing out
   const signOutHandler = async () => {
     try {
-      // Sign out the user
-      await signOut(auth);
-      // Update the user state
+      // Check if there is a signed-in user
+      if (auth.currentUser) {
+        console.log("Signing out user:", auth.currentUser.uid);
 
-      dispatch(fetchCities());
-      console.log(auth.currentUser);
+        // Sign out the user
+        await signOut(auth);
+
+        // Fetch cities data after sign-out
+        dispatch(fetchCities());
+
+        // Update the user sign-in status to indicate sign-out
+        dispatch(changeSignInStatus());
+
+        // Logs the current user should be null
+        console.log("User signed out:", auth.currentUser);
+      } else {
+        console.log("No user is signed in.");
+      }
     } catch (error) {
-      // Handle sign-out errors
-      console.log(error);
+      console.error("Error signing out:", error);
     }
   };
 
