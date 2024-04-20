@@ -59,17 +59,7 @@ To get started with the Weather App project, follow these steps:
 
 4. Obtain an API key from "Open Meteo" to access their weather data.
 
-5. Start building the app, implementing features like search, weather display, weather icons, geolocation, and map view.
 
-6. Use Redux to manage the app's state and ensure a smooth user experience.
-
-7. Utilize TypeScript to add type safety to your code and prevent common errors.
-
-8. Apply Tailwind CSS classes to create a modern and responsive user interface.
-
-9. Create an About page to provide information about the project and the technologies used.
-
-10. Test your app thoroughly and make any necessary improvements or optimizations.
 
 ## Conclusion
 
