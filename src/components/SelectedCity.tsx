@@ -36,7 +36,7 @@ const SelectedCity = () => {
     countryName,
     temp,
     feelTemp,
-    text,
+    precipitation,
     pressure,
     uv,
     wind,
@@ -44,6 +44,9 @@ const SelectedCity = () => {
     countryCode,
     weatherCode,
     isDay,
+    minTemp,
+    maxTemp,
+    daylight,
   } = data;
 
   //icons for weather code
@@ -70,7 +73,6 @@ const SelectedCity = () => {
             <p className="text-gray-500 min-w-max ">
               Feels like +{feelTemp}&deg;C
             </p>
-            <p className="text-gray-500 max-w-max">{text}</p>
           </div>
         </div>
         <div className="col-span-2 row-span-4 flex justify-evenly items-center flex-wrap gap-y-3 ">
@@ -84,14 +86,15 @@ const SelectedCity = () => {
           </div>
           <div className="flex w-1/2 justify-between">
             <h2 className="w-9/12 min-w-max">Max temp</h2>{" "}
-            <p className="w-4/12">30°C</p>
+            <p className="w-4/12">{maxTemp}°C</p>
           </div>
           <div className="flex w-1/2 justify-between ">
-            <h2 className="w-8/12">Min temp</h2> <p className="w-4/12">13 °C</p>
+            <h2 className="w-8/12">Min temp</h2>{" "}
+            <p className="w-4/12">{minTemp} °C</p>
           </div>
           <div className="flex w-1/2 justify-between">
-            <h2 className="w-9/12">Visibility</h2>
-            <p className="w-4/12">Good</p>
+            <h2 className="w-9/12">Precipitation</h2>
+            <p className="w-4/12">{precipitation}</p>
           </div>
           <div className="flex w-1/2 justify-between ">
             <h2 className="w-8/12">Wind</h2>
@@ -102,7 +105,8 @@ const SelectedCity = () => {
             <p className="w-4/12">{uv}</p>
           </div>
           <div className="flex w-1/2 justify-between">
-            <h2 className="w-8/12">Moon</h2> <p className="w-4/12">{uv}</p>
+            <h2 className="w-8/12">Daylight</h2>
+            <p className="w-4/12">{daylight.toFixed(2)} h</p>
           </div>
         </div>
       </div>

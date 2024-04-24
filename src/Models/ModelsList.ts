@@ -7,12 +7,15 @@ export interface cityState {
   uv: number;
   pressure: number;
   wind: number;
-  text: string;
   countryCode: string;
   lat: number;
   lon: number;
   weatherCode: string;
   isDay: boolean;
+  maxTemp: number;
+  minTemp: number;
+  precipitation: number;
+  daylight: number;
 }
 
 export interface forecastCityState {

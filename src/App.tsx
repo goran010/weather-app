@@ -34,7 +34,7 @@ const homeLoader = async () => {
 
   const weatherData = await axios
     .get(
-      `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,uv_index,surface_pressure,relativehumidity_2m,apparent_temperature,rain,cloudcover_low,windspeed_10m&current_weather=true`
+      `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,uv_index,surface_pressure,relativehumidity_2m,apparent_temperature,rain,windspeed_10m&current_weather=true`
     )
     .then((response) => {
       return response;
@@ -43,14 +43,16 @@ const homeLoader = async () => {
 
   const forecastData = await axios
     .get(
-      `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min,wind_speed_10m_max,weathercode&timezone=GMT&forecast_days=6`
-      )
+      `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min,wind_speed_10m_max,weathercode,precipitation_sum,daylight_duration&timezone=GMT&forecast_days=6`
+    )
     .then((response) => {
       return {
         maxTemp: response.data.daily.temperature_2m_max,
         minTemp: response.data.daily.temperature_2m_min,
         maxWind: response.data.daily.wind_speed_10m_max,
         weatherCode: response.data.daily.weathercode,
+        precipitation: response.data.daily.precipitation_sum[0],
+        daylight: response.data.daily.daylight_duration[0] / 3600,
       };
     });
   
@@ -69,6 +71,10 @@ const homeLoader = async () => {
     forecastData: forecastData,
     weatherCode: weatherData!.data.current_weather.weathercode,
     isDay: weatherData!.data.current_weather.is_day,
+    precipitation: forecastData.precipitation,
+    daylight: forecastData.daylight,
+    maxTemp: forecastData.maxTemp[0],
+    minTemp: forecastData.minTemp[0],
   };
 };
 
