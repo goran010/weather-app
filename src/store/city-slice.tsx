@@ -66,13 +66,11 @@ export const fetchData = createAsyncThunk(
     countryName: string;
     countryCode: string;
   }) => {
-    console.log(obj.lat, obj.lon, obj.cityName);
     const data: cityState = await axios
       .get(
         `https://api.open-meteo.com/v1/forecast?latitude=${obj.lat}&longitude=${obj.lon}&daily=temperature_2m_max,temperature_2m_min,uv_index_max,precipitation_sum,daylight_duration&hourly=temperature_2m,uv_index,surface_pressure,relativehumidity_2m,apparent_temperature,rain,windspeed_10m,weathercode&current_weather=true&forecast_days=2&timezone=GMT`
       )
       .then((response) => {
-        console.log(response.data);
         const today = new Date(),
           time = today.getHours() - 1;
         return {

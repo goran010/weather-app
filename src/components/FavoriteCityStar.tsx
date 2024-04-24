@@ -41,14 +41,13 @@ const FavoriteCityStar = ({ cityName }: { cityName: string }) => {
           const docRef = doc(db, "UsersCities", auth.currentUser?.uid);
           data = await getDoc(docRef);
           setSelectedCityRef(docRef);
-          console.log(data.data());
         }
+
         // Mapping the retrieved data to return id and cities array of the first document
         const favoriteCitiesData = {
           id: data?.data()!.userUID,
           cities: data?.data()!.cities,
         }; // Returning the first document
-        console.log(favoriteCitiesData);
 
         //showing favorite cities
         setIsFavorite(favoriteCitiesData.cities.includes(cityName));
@@ -57,6 +56,7 @@ const FavoriteCityStar = ({ cityName }: { cityName: string }) => {
         console.log(error);
       }
     };
+    
     //if user is looged in send request
     if (auth.currentUser) {
       getStaredMovies();

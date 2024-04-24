@@ -46,10 +46,8 @@ const Charts = () => {
   const [forecastData, setForecastData] = useState(loadedData.forecastData);
 
   // Effect to update forecast data when selectedCityIndex or maxTempsData changes
-
   useEffect(() => {
     if (selectedCityIndex !== 0) {
-      console.log(maxTempsData);
       if (maxTempsData.maxTemp.length > 0) {
         setForecastData(maxTempsData);
       }
