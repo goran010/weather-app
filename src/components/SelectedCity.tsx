@@ -60,7 +60,7 @@ const SelectedCity = () => {
         <CircleFlag countryCode={countryCode} className="h-6 translate-y-0.5" />
       </div>
       <div className=" bg-white shadow-2xl p-6 py-8 rounded-2xl border-2 border-gray-50 relative h-full">
-        <FavoriteCityStar cityName={ cityName} />
+        <FavoriteCityStar cityName={cityName} />
         <div className="flex justify-between">
           <div className="flex items-center justify-center w-2/3">
             <img src={icon} alt="weather_icon" />

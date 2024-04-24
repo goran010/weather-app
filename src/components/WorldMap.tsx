@@ -128,10 +128,13 @@ const WorldMap = () => {
                   default: {
                     fill: "rgb(23 32 52)",
                     outline: "none",
+                    transition: "fill 0.25s linear",
                   },
                   hover: {
                     fill: "#3d3d8f",
                     outline: "none",
+                    transition: "fill 0.25s linear",
+                    cursor: "pointer",
                   },
                   pressed: {
                     fill: "rgb(23 32 52)",

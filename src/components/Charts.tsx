@@ -102,7 +102,6 @@ const Charts = () => {
     chartsHeight = `${window.innerWidth / 5}px`;
   }
 
-  console.log(temperatureDataArray);
   return (
     <div className="row-start-4 row-span-3 xl:row-span-3 col-start-1 col-end-8 flex flex-col md:flex-row justify-between w-full h-full gap-8">
       <Chart
