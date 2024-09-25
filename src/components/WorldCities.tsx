@@ -10,7 +10,6 @@ import { fetchCities } from "../store/worldCities-slice";
 
 //interfaces
 import { worldCityState } from "../Models/ModelsList";
-import { auth } from "../firebase/firebase";
 
 const WorldCities = () => {
   const dispatch = useStoreDispatch();
