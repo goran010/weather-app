@@ -21,7 +21,7 @@ const Navigation = () => {
   // Effect to update the current user when authentication state changes
   useEffect(() => {
     setUser(auth.currentUser);
-  }, [auth.currentUser]);
+  }, []);
 
   // Function to handle signing out
   const signOutHandler = async () => {

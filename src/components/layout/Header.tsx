@@ -17,9 +17,6 @@ import Navigation from "./Navigation";
 const Header = () => {
   const dispatch = useDispatch();
 
-  const isSignedIn = useStoreSelector((state) => {
-    return state.ui.isSignedIn;
-  });
   const isMenuOpened = useStoreSelector((state) => {
     return state.ui.hamburgerMenuOpened;
   });

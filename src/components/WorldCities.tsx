@@ -17,7 +17,7 @@ const WorldCities = () => {
 
   useEffect(() => {
     dispatch(fetchCities());
-  }, [dispatch, auth]);
+  }, [dispatch]);
 
   const citiesData = useStoreSelector(
     (state) => state.worldCities.citiesData as worldCityState[]

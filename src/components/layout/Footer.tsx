@@ -5,7 +5,10 @@ const Footer = () => {
         <div className="sm:flex sm:items-center sm:justify-between">
           <ul className="flex sm:flex-row gap-2 sm:gap-0 flex-col flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
             <li>
-              <a href="#" className=" hover:underline sm:mr-6 ">
+              <a
+                href="https://github.com/goran010"
+                className=" hover:underline sm:mr-6 "
+              >
                 About
               </a>
             </li>

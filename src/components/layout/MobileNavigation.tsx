@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 //icons
-import { FiHome, FiInfo, FiLogOut } from "react-icons/fi";
+import { FiHome, FiInfo} from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
 import { CiLogin } from "react-icons/ci";
 import { PiSignOutBold } from "react-icons/pi";
