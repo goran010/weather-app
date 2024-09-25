@@ -48,11 +48,11 @@ const SignIn = () => {
       // Catches any error during sign-in
       if (error instanceof Error && "code" in error) {
         // Check if it's a Firebase specific error
-        if (error.code == "auth/invalid-email") {
+        if (error.code === "auth/invalid-email") {
           alert("invalid email");
           emailRef.current!.focus();
         }
-        if (error.code == "auth/wrong-password") {
+        if (error.code === "auth/wrong-password") {
           alert("wrong password");
           passwordRef.current!.focus();
         }

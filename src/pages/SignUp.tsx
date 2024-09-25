@@ -28,7 +28,7 @@ const SignUp = () => {
   const signUpHandler = async (e: React.FormEvent<EventTarget>) => {
     // Prevents the default form behavior to prevent page refresh
     e.preventDefault();
-    if (passwordRef.current?.value == confirmPasswordRef.current?.value) {
+    if (passwordRef.current?.value === confirmPasswordRef.current?.value) {
       try {
         // Attempts to create a new user using the entered email and password
         await createUserWithEmailAndPassword(
@@ -56,11 +56,11 @@ const SignUp = () => {
         console.log(error);
         if (error instanceof Error && "code" in error) {
           // Check if it's a Firebase specific error
-          if (error.code == "auth/invalid-email") {
+          if (error.code === "auth/invalid-email") {
             alert("invalid email");
             emailRef.current!.focus();
           }
-          if (error.code == "auth/weak-password") {
+          if (error.code === "auth/weak-password") {
             alert("Password should be at least 6 characters");
             passwordRef.current!.focus();
           }

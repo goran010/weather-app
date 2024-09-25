@@ -2,7 +2,7 @@
 import { Chart } from "react-google-charts";
 
 //hooks
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useStoreSelector } from "../store/hooks";
 import { useLoaderData } from "react-router-dom";
 

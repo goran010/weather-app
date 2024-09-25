@@ -7,8 +7,6 @@ import { useStoreDispatch } from "../store/hooks";
 
 //firebase, database
 import {
-  collection,
-  getDocs,
   updateDoc,
   DocumentReference,
   doc,
@@ -23,8 +21,6 @@ import { fetchCities } from "../store/worldCities-slice";
 const FavoriteCityStar = ({ cityName }: { cityName: string }) => {
   const dispatch = useStoreDispatch();
 
-  //refrence to firebase collection
-  const usersCitiesRef = collection(db, "UsersCities");
   //refrence to current user document
   const [selectedCityRef, setSelectedCityRef] =
     useState<DocumentReference | null>(null);

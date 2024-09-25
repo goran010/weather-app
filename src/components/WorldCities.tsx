@@ -11,7 +11,6 @@ import { fetchCities } from "../store/worldCities-slice";
 //interfaces
 import { worldCityState } from "../Models/ModelsList";
 import { auth } from "../firebase/firebase";
-import { useSpring, animated } from "@react-spring/web";
 
 const WorldCities = () => {
   const dispatch = useStoreDispatch();
