@@ -15,16 +15,14 @@ const InputDropdown: React.FC<InputDropdownProps> = ({
   searchedName,
   changeCity,
 }) => {
-  const BASE_METEO_API_URL = process.env.REACT_APP_METEO_API_URL;
+  const BASE_METEO_API_URL = process.env.REACT_APP_BASE_METEO_API_URL;
 
   const [cities, setCities] = useState([] as CityLocationData[]);
 
   //get cities that match searched city
   const fetchNames = async (cityName: string) => {
     await axios
-      .get(
-        `https://geocoding-api.open-meteo.com/v1/search?name=${cityName}&count=5`
-      )
+      .get(`${BASE_METEO_API_URL}?name=${cityName}&count=5`)
       .then((response) => {
         setCities(response.data.results);
       })
