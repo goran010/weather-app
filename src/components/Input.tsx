@@ -8,10 +8,10 @@ import { fetchForecast } from "../store/forecast-slice";
 import { IoSearch } from "react-icons/io5";
 
 const fetchNames = async (cityName: string) => {
+  const BASE_METEO_API_URL = process.env.REACT_APP_BASE_METEO_API_URL;
+
   const data = await axios
-    .get(
-      `https://geocoding-api.open-meteo.com/v1/search?name=${cityName}&count=1`
-    )
+    .get(`${BASE_METEO_API_URL}?name=${cityName}&count=1`)
     .then((response) => {
       return response.data.results[0];
     })
@@ -24,6 +24,7 @@ const fetchNames = async (cityName: string) => {
     countryCode: data.country_code.toLowerCase(),
   };
 };
+
 const Input = () => {
   const dispatch = useStoreDispatch();
 

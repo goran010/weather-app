@@ -11,6 +11,8 @@ const initialState: forecastState = {
   },
 };
 
+const BASE_FORECAST_API_URL = process.env.REACT_APP_BASE_FORECAST_API_URL;
+
 const forecastSlice = createSlice({
   name: "forecast",
   initialState: initialState as forecastState,
@@ -29,7 +31,7 @@ export const fetchForecast = createAsyncThunk(
   async (obj: { lat: number; lon: number }) => {
     const data = await axios
       .get(
-        `https://api.open-meteo.com/v1/forecast?latitude=${obj.lat}&longitude=${obj.lon}&daily=temperature_2m_max,temperature_2m_min,wind_speed_10m_max,weathercode&timezone=GMT&forecast_days=6`
+        `${BASE_FORECAST_API_URL}?latitude=${obj.lat}&longitude=${obj.lon}&daily=temperature_2m_max,temperature_2m_min,wind_speed_10m_max,weathercode&timezone=GMT&forecast_days=6`
       )
       .then((response) => {
         return {

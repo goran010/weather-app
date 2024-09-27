@@ -23,27 +23,32 @@ navigator.geolocation.getCurrentPosition((position) => {
   lon = position.coords.longitude;
 });
 
+const BASE_FORECAST_API_URL = process.env.REACT_APP_BASE_FORECAST_API_URL;
+  
+ const REACT_APP_BASE_REVERSE_GEOCODE_API_URL =
+   process.env.REACT_APP_BASE_REVERSE_GEOCODE_API_URL;
+
 const homeLoader = async () => {
   const day = new Date().getHours();
 
   const cityData = await axios
     .get(
-      `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}7&localityLanguage=en`
+      `${REACT_APP_BASE_REVERSE_GEOCODE_API_URL}?latitude=${lat}&longitude=${lon}7&localityLanguage=en`
     )
-    .then((response) => response.data)
+    .then((response) => response.data);
 
   const weatherData = await axios
     .get(
-      `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,uv_index,surface_pressure,relativehumidity_2m,apparent_temperature,rain,windspeed_10m&current_weather=true`
+      `${BASE_FORECAST_API_URL}?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,uv_index,surface_pressure,relativehumidity_2m,apparent_temperature,rain,windspeed_10m&current_weather=true`
     )
     .then((response) => {
       return response;
-    })
+    });
   const dataHourly = weatherData!.data.hourly;
 
   const forecastData = await axios
     .get(
-      `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min,wind_speed_10m_max,weathercode,precipitation_sum,daylight_duration&timezone=GMT&forecast_days=6`
+      `${BASE_FORECAST_API_URL}?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min,wind_speed_10m_max,weathercode,precipitation_sum,daylight_duration&timezone=GMT&forecast_days=6`
     )
     .then((response) => {
       return {

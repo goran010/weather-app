@@ -25,6 +25,9 @@ const initialState: { cities: cityState[] } = {
     },
   ],
 };
+
+ const BASE_FORECAST_API_URL = process.env.REACT_APP_BASE_FORECAST_API_URL;
+
 const citySlice = createSlice({
   name: "country",
   initialState: initialState as { cities: cityState[] },
@@ -68,7 +71,7 @@ export const fetchData = createAsyncThunk(
   }) => {
     const data: cityState = await axios
       .get(
-        `https://api.open-meteo.com/v1/forecast?latitude=${obj.lat}&longitude=${obj.lon}&daily=temperature_2m_max,temperature_2m_min,uv_index_max,precipitation_sum,daylight_duration&hourly=temperature_2m,uv_index,surface_pressure,relativehumidity_2m,apparent_temperature,rain,windspeed_10m,weathercode&current_weather=true&forecast_days=2&timezone=GMT`
+        `${BASE_FORECAST_API_URL}?latitude=${obj.lat}&longitude=${obj.lon}&daily=temperature_2m_max,temperature_2m_min,uv_index_max,precipitation_sum,daylight_duration&hourly=temperature_2m,uv_index,surface_pressure,relativehumidity_2m,apparent_temperature,rain,windspeed_10m,weathercode&current_weather=true&forecast_days=2&timezone=GMT`
       )
       .then((response) => {
         const today = new Date(),

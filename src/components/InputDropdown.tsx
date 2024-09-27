@@ -11,11 +11,12 @@ import { CircleFlag } from "react-circle-flags";
 import { InputDropdownProps } from "../Models/ModelsList";
 import { CityLocationData } from "../Models/ModelsList";
 
-
 const InputDropdown: React.FC<InputDropdownProps> = ({
   searchedName,
   changeCity,
 }) => {
+  const BASE_METEO_API_URL = process.env.REACT_APP_METEO_API_URL;
+
   const [cities, setCities] = useState([] as CityLocationData[]);
 
   //get cities that match searched city

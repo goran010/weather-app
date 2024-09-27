@@ -42,6 +42,10 @@ const getCitiesArray = async () => {
 export const fetchCities = createAsyncThunk<worldCityState[]>(
   "worldCitiesSlice/fetchCity",
   async () => {
+    const BASE_METEO_API_URL = process.env.REACT_APP_BASE_METEO_API_URL;
+
+    const BASE_FORECAST_API_URL = process.env.REACT_APP_BASE_FORECAST_API_URL;
+
     // Fetch cities array from the Firestore
     const citiesArray = await getCitiesArray();
 
@@ -54,13 +58,13 @@ export const fetchCities = createAsyncThunk<worldCityState[]>(
         try {
           // Fetch geocoding data for the city
           const responseGeo = await axios.get(
-            `https://geocoding-api.open-meteo.com/v1/search?name=${cityName}&count=1`
+            `${BASE_METEO_API_URL}?name=${cityName}&count=1`
           );
           const dataGeo = responseGeo.data.results[0];
 
           // Fetch weather data for the city
           const responseWeather = await axios.get(
-            `https://api.open-meteo.com/v1/forecast?latitude=${dataGeo.latitude}&longitude=${dataGeo.longitude}&hourly=temperature_2m,uv_index,surface_pressure,relativehumidity_2m,apparent_temperature,rain,cloudcover_low,windspeed_10m,weathercode&current_weather=true&forecast_days=2&timezone=GMT`
+            `${BASE_FORECAST_API_URL}?latitude=${dataGeo.latitude}&longitude=${dataGeo.longitude}&hourly=temperature_2m,uv_index,surface_pressure,relativehumidity_2m,apparent_temperature,rain,cloudcover_low,windspeed_10m,weathercode&current_weather=true&forecast_days=2&timezone=GMT`
           );
           const dataWeather = responseWeather.data.current_weather;
 

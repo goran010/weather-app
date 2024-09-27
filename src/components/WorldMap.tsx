@@ -28,10 +28,10 @@ import axios from "axios";
 
 //fetch data for selected capital city
 const fetchCapitalCityData = async (capitalCityName: any) => {
-  const apiURL = `https://geocoding-api.open-meteo.com/v1/search?name=${capitalCityName}&count=1`;
+  const BASE_METEO_API_URL = process.env.REACT_APP_BASE_METEO_API_URL;
 
   const fetchedCityData = await axios
-    .get(apiURL)
+    .get(`${BASE_METEO_API_URL}?name=${capitalCityName}&count=1`)
     .then((response) => {
       return response.data.results[0];
     })
