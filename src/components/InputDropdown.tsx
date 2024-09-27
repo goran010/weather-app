@@ -32,7 +32,7 @@ const InputDropdown: React.FC<InputDropdownProps> = ({
   //fetch new cities when searched term is changed
   useEffect(() => {
     fetchNames(searchedName);
-  }, [searchedName]);
+  }, [fetchNames,searchedName]);
 
   return (
     <ul className="bg-white min-w-max border-slate-200 border-2 rounded-md absolute w-full top-0 pt-10 text-black">
