@@ -1,11 +1,16 @@
+//charts from https://www.react-google-charts.com/
 import { Chart } from "react-google-charts";
+
+//hooks
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { useStoreSelector } from "../store/hooks";
 import { useLoaderData } from "react-router-dom";
+
+//interfaces
 import { forecastCityState } from "../Models/ModelsList";
 
 export const optionsTemperatureChart = {
-  title: "Forecasted maximal and minimal temperature for the next five days",
+  title: "Forecasted max and min temperature for the next five days",
   titleTextStyle: {
     fontSize: 12,
     bold: false,
@@ -43,7 +48,7 @@ const Charts = () => {
 
   const updateChartHeight = useCallback(() => {
     const width = window.innerWidth;
-    if (width < 1280) setChartsHeight("100%");
+    if (width < 1280) setChartsHeight("auto");
     else if (width >= 1280 && width < 1550) setChartsHeight(`${width / 7}px`);
     else if (width >= 1550 && width < 1810) setChartsHeight(`${width / 6}px`);
     else if (width >= 1810 && width < 2100) setChartsHeight(`${width / 5.5}px`);
