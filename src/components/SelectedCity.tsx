@@ -62,20 +62,20 @@ const SelectedCity = () => {
         </h3>
         <CircleFlag countryCode={countryCode} className="h-6 translate-y-0.5" />
       </div>
-      <div className=" bg-white shadow-2xl p-6 py-8 rounded-2xl border-2 border-gray-50 relative h-full">
+      <div className=" bg-white shadow-2xl p-4 md:p-6 py-8 rounded-2xl border-2 border-gray-50 relative h-full">
         <FavoriteCityStar cityName={cityName} />
         <div className="flex justify-between">
-          <div className="flex items-center justify-center w-2/3">
+          <div className="flex items-center justify-center w-3/6">
             <img src={icon} alt="weather_icon" />
           </div>
-          <div className="flex w-1/3 flex-col gap-1 justify-center">
+          <div className="flex w-3/6 flex-col gap-1 justify-center">
             <h2 className="text-3xl font-bold min-w-max">{temp}°C</h2>
             <p className="text-gray-500 min-w-max ">
               Feels like +{feelTemp}&deg;C
             </p>
           </div>
         </div>
-        <div className="col-span-2 row-span-4 flex justify-evenly items-center flex-wrap gap-y-3 ">
+        <div className="col-span-2 row-span-4 flex justify-evenly items-center flex-wrap gap-y-4 text-xs xs:text-sm md:text-base">
           <div className="flex justify-between w-1/2  pt-4 ">
             <h2 className="w-9/12 min-w-max">Humidity</h2>
             <p className="w-4/12">{humidity}%</p>

@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 //icons
-import { FiHome, FiInfo} from "react-icons/fi";
+import { FiHome, FiInfo } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
 import { CiLogin } from "react-icons/ci";
 import { PiSignOutBold } from "react-icons/pi";
@@ -14,7 +14,7 @@ import { changeMenuOpen } from "../../store/ui-slice";
 //hooks
 import { useStoreDispatch } from "../../store/hooks";
 
-const MobileNavigation: React.FC<{ isSignedIn: boolean;}> = ({ isSignedIn }) => {
+const MobileNavigation = ({isSignedIn}:{isSignedIn:boolean}) => {
   const dispatch = useStoreDispatch();
 
   return (

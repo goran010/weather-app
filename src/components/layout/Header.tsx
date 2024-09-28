@@ -22,7 +22,7 @@ const Header = () => {
   });
 
   return (
-    <header className="px-6 sm:px-20 lg:px-28 lg:py-3 py-5 sm:relative sticky top-0 bg-gray-900 z-20 mb-4 text-white flex flex-col justify-between  gap-3 lg:gap-5 lg:grid grid-cols-12 grid-rows-1 gap-x-16 content-end">
+    <header className="px-6 sm:px-20 lg:px-28 lg:py-3 py-5 sm:relative sticky top-0 bg-gray-900 z-20 mb-4 text-white flex flex-row lg:flex-col justify-between  gap-3 lg:gap-5 lg:grid grid-cols-12 grid-rows-1 gap-x-16 content-end">
       {/*mobile view */}
       <RxHamburgerMenu
         className="w-8 h-8 lg:hidden"
@@ -37,7 +37,7 @@ const Header = () => {
       <div className="hidden lg:flex col-start-2 col-end-8">
         <Navigation />
       </div>
-      <div className="col-start-9 col-end-13 h-full flex items-center">
+      <div className="col-start-3 lg:col-start-9 col-end-13 h-full flex items-center">
         <Input />
       </div>
     </header>

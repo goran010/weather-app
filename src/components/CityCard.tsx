@@ -70,7 +70,7 @@ const CityCard = (props: { data: worldCityState }) => {
           {props.data.cityName}
         </h3>
         <div className="flex flex-col pt-8">
-          <h2 className="font-bold text-xl text-gray-700 text-center">
+          <h2 className="font-bold text-gray-700 text-center">
             {temperature} °C
           </h2>{" "}
           <img

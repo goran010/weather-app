@@ -25,10 +25,10 @@ const ForecastCard = (props: {
   const icon = icons[weatherCode.toString()].day.image;
 
   return (
-    <div className="flex flex-col justify-between lg:w-1/6 w-1/3 gap-y-1 ">
-      <h2 className="text-sm text-center min-w-min">{date}</h2>
+    <div className="flex flex-col justify-between lg:w-1/6 w-1/3 gap-y-1 text-xs xs:text-sm">
+      <h2 className=" text-center min-w-min">{date}</h2>
       <img src={icon} className="w-4/12 max-w-[80px] m-auto" alt="" />
-      <div className="flex justify-center w-full m-auto gap-0.5 flex-row ">
+      <div className="flex justify-center w-full m-auto flex-row">
         <p className="text-center font-semibold">{maxTemp}&deg;C</p>
         <p className="text-center flex md:hidden xl:flex">/</p>
         <p className="text-center">{minTemp}&deg;C</p>
